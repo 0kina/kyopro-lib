@@ -4,9 +4,6 @@
 #include <vector>
 
 class UnionFind {
- private:
-  std::vector<int> par, siz;
-
  public:
   UnionFind(int n) : par(n), siz(n, 1) {
       std::iota(par.begin(), par.end(), 0);
@@ -39,4 +36,7 @@ class UnionFind {
   int size(int x) {
     return siz[root(x)];
   }
+
+ private:
+  std::vector<int> par, siz;
 };
