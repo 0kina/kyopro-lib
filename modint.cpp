@@ -1,4 +1,3 @@
-// validate: ABC-055-B
 #include <ostream>
 
 template <long long mod>
