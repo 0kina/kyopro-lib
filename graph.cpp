@@ -2,32 +2,32 @@
 
 #include <vector>
 
-template <typename T = int>
+template <typename CostType = int>
 struct Edge {
  public:
   int from, to, id;
-  T weight;
+  CostType cost;
 
-  Edge(int from, int to, T weight = 1, int id = -1) : from(from), to(to), weight(weight), id(id) {}
+  Edge(int from, int to, CostType cost = 1, int id = -1) : from(from), to(to), cost(cost), id(id) {}
 };
 
-template <typename T = int>
+template <typename CostType = int>
 struct Graph {
  public:
-  std::vector<std::vector<Edge<T>>> g;
+  std::vector<std::vector<Edge<CostType>>> g;
   
   explicit Graph(int n) :g(n), siz(0) {}
 
-  void add_edge(int from, int to, T weight = 1) {
-    g[from].emplace_back(from, to, weight, siz);
-    g[to].emplace_back(to, from, weight, siz++);
+  void add_edge(int from, int to, CostType cost = 1) {
+    g[from].emplace_back(from, to, cost, siz);
+    g[to].emplace_back(to, from, cost, siz++);
   }
 
-  void add_directed_edge(int from, int to, T weight = 1) {
-    g[from].emplace_back(from, to, weight, siz++);
+  void add_directed_edge(int from, int to, CostType cost = 1) {
+    g[from].emplace_back(from, to, cost, siz++);
   }
 
-  std::vector<Edge<T>> &operator[](int const &k) {
+  std::vector<Edge<CostType>> &operator[](int const &k) {
     return g[k];
   }
 
