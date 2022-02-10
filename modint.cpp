@@ -1,3 +1,5 @@
+#pragma once
+
 #include <ostream>
 
 template <long long mod>
