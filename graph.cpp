@@ -27,11 +27,11 @@ struct Graph {
     g[from].emplace_back(from, to, cost, siz++);
   }
 
-  std::vector<Edge<CostType>> &operator[](int const &k) {
+  std::vector<Edge<CostType>> &operator[](int const &k) const {
     return g[k];
   }
 
-  std::size_t size() {
+  std::size_t size() const {
     return g.size();
   }
 
