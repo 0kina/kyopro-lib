@@ -16,7 +16,7 @@ class UnionFind {
     return par[x] = root(par[x]);
   }
 
-  int is_same(int x, int y) {
+  bool is_same(int x, int y) {
     return root(x) == root(y);
   }
 
