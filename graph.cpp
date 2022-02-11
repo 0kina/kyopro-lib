@@ -12,6 +12,28 @@ struct Edge {
 };
 
 template <typename CostType = int>
+bool operator<(const Edge<CostType> &a, const Edge<CostType> &b) {
+  bool res = false;
+  if (a.from < b.from) res = true;
+  else if (a.from == b.from) {
+    if (a.to < b.to) res = true;
+    else if (a.to == b.to && a.cost < b.cost) res = true;
+  }
+
+  return res;
+}
+
+template <typename CostType = int>
+bool operator==(const Edge<CostType> &a, const Edge<CostType> &b) {
+  return !(a < b) && !(b < a);
+}
+
+template <typename CostType = int>
+bool operator!=(const Edge<CostType> &a, const Edge<CostType> &b) {
+  return !(a == b);
+}
+
+template <typename CostType = int>
 struct Graph {
  public:
   std::vector<std::vector<Edge<CostType>>> g;
@@ -27,7 +49,7 @@ struct Graph {
     g[from].emplace_back(from, to, cost, siz++);
   }
 
-  std::vector<Edge<CostType>> &operator[](int const &k) const {
+  const std::vector<Edge<CostType>> &operator[](const int &k) const {
     return g[k];
   }
 
