@@ -31,7 +31,7 @@ class ModInt {
     return pow(*this, mod - 2);
   }
 
-  long long get_x() const {
+  long long x() const {
     return x;
   }
 
@@ -75,6 +75,6 @@ ModInt<mod> pow(const ModInt<mod> &base, const long long &exp) {
 
 template <long long mod>
 std::ostream &operator<<(std::ostream &ost, const ModInt<mod> &m) {
-  ost << m.get_x();
+  ost << m.x();
   return ost;
 };
