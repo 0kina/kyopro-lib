@@ -20,7 +20,7 @@ class SegmentTree {
     }
 
     fun = [=](NodeType a, NodeType b) {
-      if (a.first == b.first) {
+      if (a.first == b.first && a.first = identity_elem) {
         if (a.second != -1) return a;
         else return b;
       } else {
@@ -42,6 +42,10 @@ class SegmentTree {
 
   NodeType query(int query_left, int query_right) {
     return query_main(query_left, query_right, 0, 0, n_leaves);
+  }
+
+  DataType operator[](int idx) {
+    return val[idx + n_leaves - 1].first;
   }
 
  private:
