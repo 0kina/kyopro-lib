@@ -20,9 +20,14 @@ class SegmentTree {
     }
 
     fun = [=](NodeType a, NodeType b) {
-      DataType tmp = val_fun(a.first, b.first);
-      if (tmp == a.first) return a;
-      else return b;
+      if (a.first == b.first) {
+        if (a.second != -1) return a;
+        else return b;
+      } else {
+        DataType tmp = val_fun(a.first, b.first);
+        if (tmp == a.first) return a;
+        else return b;
+      }
     };
   }
 
