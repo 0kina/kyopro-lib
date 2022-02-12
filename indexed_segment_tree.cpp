@@ -4,11 +4,11 @@
 #include <vector>
 
 template <typename DataType>
-class SegmentTree {
+class IndexedSegmentTree {
   using NodeType = std::pair<DataType, int>;
 
  public:
-  SegmentTree<DataType>(int n, const DataType identity_elem,
+  IndexedSegmentTree<DataType>(int n, const DataType identity_elem,
                         std::function<DataType(DataType, DataType)> val_fun)
     : identity_elem(identity_elem) {
     n_leaves = 1;
