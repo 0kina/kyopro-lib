@@ -6,11 +6,11 @@
 
 #include "graph.cpp"
 
-template <typename DistType = int, typename CostType = int>
+template <typename CostType = int>
 class Dijkstra {
  public:
   int s;
-  const CostType INF = std::numeric_limits<DistType>::max();
+  const CostType INF = std::numeric_limits<CostType>::max();
 
   Dijkstra(const Graph<CostType> &G, int s) :
     s(s),
@@ -21,7 +21,7 @@ class Dijkstra {
       solve();
   };
 
-  DistType distance_to(int t) const {
+  CostType distance_to(int t) const {
     if (dist[t] == INF) return -1;
     else return dist[t];
   }
@@ -46,11 +46,11 @@ class Dijkstra {
 
  private:
   const Graph<CostType> &G;
-  std::vector<DistType> dist;
+  std::vector<CostType> dist;
   std::vector<int> prev;
 
   void solve() {
-    using PQItem = std::pair<int, DistType>;
+    using PQItem = std::pair<int, CostType>;
 
     auto comp = [](PQItem a, PQItem b) {
       return a.second > b.second;

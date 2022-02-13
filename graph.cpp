@@ -8,7 +8,7 @@ struct Edge {
   int from, to, id;
   CostType cost;
 
-  Edge(int from, int to, CostType cost = 1, int id = -1) : from(from), to(to), cost(cost), id(id) {}
+  Edge(int from, int to, CostType cost = 1, int id = -1) : from(from), to(to), id(id), cost(cost) {}
 };
 
 template <typename CostType = int>
