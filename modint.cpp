@@ -23,15 +23,36 @@ class ModInt {
   }
 
   ModInt<mod> & operator/=(const ModInt<mod> &right) {
-    (x *= right.inv()) %= mod;
+    // (x *= right.inv()) %= mod;
+    // return *this;
+    LL a = right.get_x(), b = mod, u = 1, v = 0;
+    while (b) {
+      LL t = a / b;
+      a -= t * b;
+      swap(a, b);
+      u -= t * v;
+      swap(u, v);
+    }
+
+    x = x * u % mod;
+    if (x < 0) x += mod;
     return *this;
   }
 
-  ModInt<mod> & inv() const {
-    return pow(*this, mod - 2);
+  ModInt<mod> pow(const long long &exp) const {
+    if (!x || exp == 0) return ModInt<mod>(1);
+
+    ModInt<mod> m = pow(exp / 2);
+    m *= m;
+    if (exp & 1) m *= x;
+    return m;
   }
 
-  long long x() const {
+  ModInt<mod> inv() const {
+    return pow(mod - 2);
+  }
+
+  long long get_x() const {
     return x;
   }
 
@@ -40,41 +61,44 @@ class ModInt {
 };
 
 template<long long mod>
-ModInt<mod> & operator+(ModInt<mod> left, ModInt<mod> right) {
+ModInt<mod> operator+(ModInt<mod> left, ModInt<mod> right) {
   ModInt<mod> res = left;
   return res += right;
 }
 
 template<long long mod>
-ModInt<mod> & operator-(ModInt<mod> left, ModInt<mod> right) {
+ModInt<mod> operator-(ModInt<mod> left, ModInt<mod> right) {
   ModInt<mod> res = left;
   return res -= right;
 }
 
 template<long long mod>
-ModInt<mod> & operator*(ModInt<mod> left, ModInt<mod> right) {
+ModInt<mod> operator*(ModInt<mod> left, ModInt<mod> right) {
   ModInt<mod> res = left;
   return res *= right;
 }
 
 template<long long mod>
-ModInt<mod> & operator/(ModInt<mod> left, ModInt<mod> right) {
+ModInt<mod> operator/(ModInt<mod> left, ModInt<mod> right) {
   ModInt<mod> res = left;
   return res /= right;
 }
 
-template <long long mod>
-ModInt<mod> pow(const ModInt<mod> &base, const long long &exp) {
-  if (!base.x) return ModInt<mod>(1);
 
-  ModInt<mod> m = pow(base, exp / 2);
-  m *= m;
-  if (exp & 1) m *= base;
-  return m;
+template <long long mod>
+ModInt<mod> choose(long long n, long long k) {
+  if (n < k || k < 0) return 0;
+  ModInt<mod> ret(1);
+  for (LL i = 0; i < k; ++i) {
+    ret *= ModInt<mod>(n - i);
+    ret *= ModInt<mod>(k - i).inv();
+  }
+
+  return ret;
 }
 
 template <long long mod>
 std::ostream &operator<<(std::ostream &ost, const ModInt<mod> &m) {
-  ost << m.x();
+  ost << m.get_x();
   return ost;
 };
