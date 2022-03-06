@@ -5,7 +5,10 @@
 template <long long mod>
 class ModInt {
  public:
-  ModInt<mod>(long long x) : x(static_cast<long long>(x)) {}
+  ModInt<mod>(long long x) {
+    this->x = x % mod;
+    if (this->x < 0) this->x += mod;
+  }
 
   ModInt<mod> & operator+=(const ModInt<mod> &right) {
     if ((x += right.x) >= mod) x -= mod;
