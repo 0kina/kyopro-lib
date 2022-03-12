@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <vector>
 
 template <long long mod>
 class ModInt {
@@ -98,6 +99,27 @@ ModInt<mod> choose(long long n, long long k) {
   }
 
   return ret;
+}
+
+template <long long mod>
+void calc_fact(int n, std::vector<ModInt<mod>> &fact) {
+  fact.push_back(1);
+  fact.push_back(1);
+  for (int i = 2; i <= n; ++i) fact.push_back(fact[i - 1] * ModInt<mod>(i));
+  return;
+}
+
+template <long long mod>
+void calc_inv_fact(const std::vector<ModInt<mod>> &fact, std::vector<ModInt<mod>> &inv_fact) {
+  for (int i = 0; i < (int)fact.size(); ++i) inv_fact.push_back(ModInt<mod>(1) / fact[i]);
+  return;
+}
+
+template <long long mod>
+ModInt<mod> choose(long long n, long long k, const std::vector<ModInt<mod>> &fact, const std::vector<ModInt<mod>> &inv_fact) {
+  if (n < k || k < 0) return 0;
+
+  return fact[n] * inv_fact[k] * inv_fact[n - k];
 }
 
 template <long long mod>
