@@ -18,6 +18,7 @@ class FenwickTree {
   T sum(int pos) {
     if (pos < 0) return 0;
     else {
+      if (pos >= n) pos = n - 1;
       T ret = 0;
       for (int i = pos; i >= 0; i = (i & (i + 1)) - 1) ret += val[i];
       return ret;
