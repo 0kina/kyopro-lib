@@ -2,11 +2,12 @@
 
 #include <algorithm>
 #include <map>
+#include <set>
 #include <vector>
 
 class SCC_Graph {
  public:
-  SCC_Graph(int n) : n(n), comp(n, -1), g(n), rev_g(n) {};
+  explicit SCC_Graph(int n) : n(n), comp(n, -1), g(n), rev_g(n) {};
 
   void add_edge(int from, int to) {
     g[from].push_back(to);
@@ -40,6 +41,22 @@ class SCC_Graph {
 
   int size(int u) {
     return siz[comp[u]];
+  }
+
+  std::vector<std::vector<int>> rebuild() {
+    int N = *std::max_element(std::begin(comp), std::end(comp)) + 1;
+    std::vector<std::vector<int>> ret(N);
+    std::set<std::pair<int, int>> connected;
+    for (int i = 0; i < n; ++i) {
+      for (int v : g[i]) {
+        if (comp[i] != comp[v] && !connected.count(std::make_pair(i, v))) {
+          connected.insert(std::make_pair(i, v));
+          ret[comp[i]].push_back(comp[v]);
+        }
+      }
+    }
+
+    return ret;
   }
 
  private:
