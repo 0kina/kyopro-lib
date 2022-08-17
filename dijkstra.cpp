@@ -3,40 +3,55 @@
 #include <algorithm>
 #include <queue>
 #include <limits>
+#include <vector>
 
-#include "graph.cpp"
+#include <iostream>
 
-template <typename CostType = int>
+template <typename CostType>
 class Dijkstra {
  public:
-  int s;
-  const CostType INF = std::numeric_limits<CostType>::max();
+  Dijkstra(int n, const std::vector<std::vector<std::pair<int, CostType>>> &G, int src) : _src(src) {
+    _dist.assign(n, INF);
+    _dist[src] = 0;
+    _prev.assign(n, -1);
 
-  Dijkstra(const Graph<CostType> &G, int s) :
-    s(s),
-    G(G),
-    dist(G.size(), INF),
-    prev(G.size(), -1) {
-      dist[s] = 0;
-      solve();
+    using State = std::pair<CostType, int>;
+    std::priority_queue<State, std::vector<State>, std::greater<State>> pq;
+    pq.emplace(0, src);
+    while (pq.size()) {
+      auto [du, u] = pq.top();
+
+      pq.pop();
+      if (_dist[u] != du) continue;
+
+      for (auto [v, c] : G[u]) {
+        CostType new_dv = du + c;
+        if (_dist[v] > new_dv) {
+          _dist[v] = new_dv;
+          _prev[v] = u;
+          pq.emplace(new_dv, v);
+        }
+      }
+    }
   };
 
   CostType distance_to(int t) const {
-    if (dist[t] == INF) return -1;
-    else return dist[t];
+    if (_dist[t] == INF) return -1;
+    else return _dist[t];
   }
 
-  std::pair<bool, std::vector<Edge<CostType>>> path_to(int t) const {
-    std::pair<bool, std::vector<Edge<CostType>>> res{false, std::vector<Edge<CostType>>()};
+  std::pair<bool, std::vector<int>> path_to(int t) const {
+    std::pair<bool, std::vector<int>> res{false, std::vector<int>()};
 
-    if (dist[t] == INF) return res;
+    if (_dist[t] == INF) return res;
 
     res.first = true;
 
+    res.second.push_back(t);
     int pos = t;
-    while (pos != s) {
-      res.second.emplace_back(prev[pos], pos, dist[pos] - dist[prev[pos]]);
-      pos = prev[pos];
+    while (pos != _src) {
+      res.second.push_back(_prev[pos]);
+      pos = _prev[pos];
     }
 
     std::reverse(std::begin(res.second), std::end(res.second));
@@ -45,33 +60,8 @@ class Dijkstra {
   }
 
  private:
-  const Graph<CostType> &G;
-  std::vector<CostType> dist;
-  std::vector<int> prev;
-
-  void solve() {
-    using PQItem = std::pair<int, CostType>;
-
-    auto comp = [](PQItem a, PQItem b) {
-      return a.second > b.second;
-    };
-
-    std::priority_queue<PQItem, std::vector<PQItem>, decltype(comp)> pq{comp};
-    pq.push({s, 0});
-
-    while (!pq.empty()) {
-      PQItem tp = pq.top();
-      pq.pop();
-      if (dist[tp.first] < tp.second) continue;
-
-      for (Edge<CostType> v : G[tp.first]) {
-        if (dist[v.to] > dist[v.from] + v.cost) {
-          dist[v.to] = dist[v.from] + v.cost;
-          prev[v.to] = v.from;
-          pq.push({v.to, dist[v.to]});
-        }
-      }
-    }
-  }
-
+  const CostType INF = std::numeric_limits<CostType>::max();
+  int _src;
+  std::vector<CostType> _dist;
+  std::vector<int> _prev;
 };

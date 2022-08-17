@@ -1,6 +1,6 @@
 # kyopro-lib
 ## validation
-* dijkstra: https://judge.yosupo.jp/submission/78163
+* dijkstra: https://judge.yosupo.jp/submission/100397
 * fenwick_tree: 
   * add, sum: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6381675#1 
   * lower_bound: https://atcoder.jp/contests/arc033/submissions/29947667
