@@ -1,5 +1,20 @@
 # kyopro-lib
-## validation
+
+## シグネチャ
+* dijkstra:
+  * Dijkstra(int n, const std::vector<std::vector<std::pair<int, CostType>>> &G, int src)
+    * n: グラフの頂点数
+    * G: グラフの隣接行列
+    * src: 始点
+
+  * CostType distance_to(int t)
+    * 頂点tまでの距離を返す．
+
+  * std::pair<bool, std::vector<int>> path_to(int t)
+    * （頂点tまでのパスが存在するかどうか，存在する場合はパスを表す頂点列）のペアを返す．
+    * パスが存在しない場合，第2要素は空のベクトル
+
+## バリデーション
 * dijkstra: https://judge.yosupo.jp/submission/100397
 * fenwick_tree: 
   * add, sum: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6381675#1 
