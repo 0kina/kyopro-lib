@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OKINA_DIJKSTRA
+#define OKINA_DIJKSTRA
 
 #include <algorithm>
 #include <queue>
@@ -65,3 +66,5 @@ class Dijkstra {
   std::vector<CostType> _dist;
   std::vector<int> _prev;
 };
+
+#endif
