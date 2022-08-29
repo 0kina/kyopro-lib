@@ -1,5 +1,5 @@
-#ifndef OKINA_DIJKSTRA
-#define OKINA_DIJKSTRA
+#ifndef OKINA_UNIONFIND
+#define OKINA_UNIONFIND
 
 #include <numeric>
 #include <vector>
