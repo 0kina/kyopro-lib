@@ -1,3 +1,5 @@
+.vscode/
+
 output.txt
 test.cpp
 expanded.cpp
