@@ -14,6 +14,20 @@
     * （頂点tまでのパスが存在するかどうか，存在する場合はパスを表す頂点列）のペアを返す．
     * パスが存在しない場合，第2要素は空のベクトル
 
+* union_find:
+  * UnionFind(int n)
+    * n: 集合の要素数
+    * int root(int x)
+      * 要素xに対する代表元を返す．
+    
+    * bool is_same(int x, int y)
+      * x, yが同じグループに属している場合はtrueを返す．
+      * そうでない場合はfalseを返す．
+    
+    * bool unite(int x, int y)
+      * x, yが同じグループに属している場合はfalseを返し，何もしない．
+      * そうでない場合はxの属するグループとyの属するグループを合併し，trueを返す．
+
 ## バリデーション
 * dijkstra: https://judge.yosupo.jp/submission/100397
 * fenwick_tree: 
