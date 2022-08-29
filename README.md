@@ -34,6 +34,7 @@
 
 ## バリデーション
 * dijkstra: https://judge.yosupo.jp/submission/100397
+* union_find: https://judge.yosupo.jp/submission/102091
 
 ### old
 * fenwick_tree: 
@@ -46,4 +47,3 @@
 * scc_graph: https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/GRL_3_C/judge/6435203/C++17
 * segment_tree: https://judge.yosupo.jp/submission/78395
 * topological_sort: https://judge.u-aizu.ac.jp/onlinejudge/submission.jsp# 
-* union_find: https://judge.yosupo.jp/submission/76902
