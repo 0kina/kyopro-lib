@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OKINA_DIJKSTRA
+#define OKINA_DIJKSTRA
 
 #include <numeric>
 #include <vector>
@@ -40,3 +41,5 @@ class UnionFind {
  private:
   std::vector<int> _par, _siz;
 };
+
+#endif
