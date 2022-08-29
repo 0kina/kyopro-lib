@@ -5,15 +5,15 @@
 
 class UnionFind {
  public:
-  UnionFind(int n) : par(n), siz(n, 1) {
-      std::iota(par.begin(), par.end(), 0);
+  UnionFind(int n) : _par(n), _siz(n, 1) {
+      std::iota(_par.begin(), _par.end(), 0);
     }
 
   int root(int x) {
-    if (par[x] == x) {
+    if (_par[x] == x) {
       return x;
     }
-    return par[x] = root(par[x]);
+    return _par[x] = root(_par[x]);
   }
 
   bool is_same(int x, int y) {
@@ -26,17 +26,17 @@ class UnionFind {
 
     if (x == y) return false;
 
-    if (siz[x] < siz[y]) std::swap(x, y);
+    if (_siz[x] < _siz[y]) std::swap(x, y);
 
-    par[y] = x;
-    siz[x] += siz[y];
+    _par[y] = x;
+    _siz[x] += _siz[y];
     return true;
   }
 
   int size(int x) {
-    return siz[root(x)];
+    return _siz[root(x)];
   }
 
  private:
-  std::vector<int> par, siz;
+  std::vector<int> _par, _siz;
 };
