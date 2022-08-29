@@ -1,6 +1,7 @@
 .vscode/
 
+a.out
+build.sh
+expanded.cpp
 output.txt
 test.cpp
-expanded.cpp
-a.out
