@@ -5,25 +5,32 @@
 
 ## シグネチャ
 * dijkstra:
-  * `Dijkstra<CostType>(int n, const vector<vector<pair<int, CostType>>> &G, int src)`
+  * `Dijkstra<CostType>(const int n, int src)`
     * `n`: グラフの頂点数．
     * `CostType`: 辺の重みの型．`int`または`long long`．
-    * `G`: グラフの隣接行列．
     * `src`: 始点．
+  
+  * `void add_edge(const int u, const int v, const CostType c)`
+    * 2頂点`u`, `v`間を結ぶコスト`c`の有向辺を追加．
+  
+  * `void solve()`
+    * 最短経路を計算する．
+  
+  * `bool is_reachable(int t)`
+    * 頂点`t`に到達可能かどうかを返す．
 
   * `CostType distance_to(int t)`
-    * 頂点`t`までの距離を返す．
+    * `is_reachable(t)`が`true`であるときに頂点`t`までの距離を返す．
 
   * `pair<bool, vector<int>> path_to(int t)`
-    * （頂点`t`までのパスが存在するかどうか，存在する場合はパスを表す頂点列）のペアを返す．
-    * パスが存在しない場合，第2要素は空のベクトル．
+    * `is_reachable(t)`が`true`であるときに，頂点`t`までのパスを表す頂点列を`vector`で返す．
 
 * kruskal:
   * `Kruskal<CostType>(int n)`
     * `CostType`: 辺の重みの型．`int`または`long long`．
     * `n`: `グラフの頂点数．
 
-  * `void add_edge(const int u, const int v, const CostType`
+  * `void add_edge(const int u, const int v, const CostType c)`
     * 2頂点`u`, `v`間を結ぶコスト`c`の無向辺を追加．
   
   * `void solve()`
@@ -54,7 +61,7 @@
       * そうでない場合は`x`の属するグループと`y`の属するグループを合併し，`true`を返す．
 
 ## バリデーション
-* dijkstra: https://judge.yosupo.jp/submission/100397
+* dijkstra: https://judge.yosupo.jp/submission/102399
 * kruskal: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6934332#1
 * union_find: https://judge.yosupo.jp/submission/102091
 
