@@ -3,5 +3,6 @@
 a.out
 build.sh
 expanded.cpp
+input.txt
 output.txt
 test.cpp
