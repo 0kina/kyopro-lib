@@ -10,7 +10,7 @@
 
 template<typename CostType>
 class Kruskal {
- using Edge = std::tuple<int, int, CostType>;
+  using Edge = std::tuple<int, int, CostType>;
  public:
   Kruskal(int n) : _n(n), _pq([](Edge a, Edge b) { return std::get<2>(a) > std::get<2>(b); }), _uf(n) {};
 
