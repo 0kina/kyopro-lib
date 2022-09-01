@@ -46,23 +46,46 @@
     * `solve()`の実行後に呼ぶことで，計算した全域森を返す．
     * 全域森は，各辺を表す`tuple`<頂点, 頂点, コスト>の`vector`で表される．
 
+* scc:
+  * `SCC(int n)`
+    * `n`: `グラフの頂点数．
+
+  * `void add_edge(const int from, const int to)`
+    * 2頂点`from`, `to`間を結ぶ有向辺を追加．
+  
+  * `void solve()`
+    * 強連結成分を計算．
+  
+  * `vector<int> comp()`
+    * 各頂点の強連結成分番号を表すサイズ`n`の`vector`を返す．
+  
+  * `bool is_same(const int u, const int v)`
+    * 2頂点`u`, `v`が同じ強連結成分に属するかどうかを返す．
+  
+  * `int comp_size(const int u)`
+    * 頂点`u`が属する強連結成分のサイズを返す．
+  
+  * `vector<vector<int>> scc()`
+    * 第`i`成分が強連結成分番号`i`である頂点集合となるような2次元`vector`を返す．
+
 * union_find:
   * `UnionFind(int n)`
     * `n`: 集合の要素数．
     * `int root(int x)`
       * 要素`x`に対する代表元を返す．
     
-    * `bool is_same(int x, int y)`
-      * `x`, `y`が同じグループに属している場合は`true`を返す．
-      * そうでない場合は`false`を返す．
-    
-    * `bool unite(int x, int y)`
-      * `x`, `y`が同じグループに属している場合は`false`を返し，何もしない．
-      * そうでない場合は`x`の属するグループと`y`の属するグループを合併し，`true`を返す．
+  * `bool is_same(int x, int y)`
+    * `x`, `y`が同じグループに属している場合は`true`を返す．
+    * そうでない場合は`false`を返す．
+  
+  * `bool unite(int x, int y)`
+    * `x`, `y`が同じグループに属している場合は`false`を返し，何もしない．
+    * そうでない場合は`x`の属するグループと`y`の属するグループを合併し，`true`を返す．
 
 ## バリデーション
 * dijkstra: https://judge.yosupo.jp/submission/102399
 * kruskal: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6934332#1
+* scc: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6937226#1
 * union_find: https://judge.yosupo.jp/submission/102091
 
 ### old
@@ -72,6 +95,5 @@
 * indexed_segment_tree: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6318014#1
 * modint: https://atcoder.jp/contests/abc055/submissions/29173328
 * runlength: https://atcoder.jp/contests/abc019/submissions/30513094
-* scc_graph: https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/GRL_3_C/judge/6435203/C++17
 * segment_tree: https://judge.yosupo.jp/submission/78395
 * topological_sort: https://judge.u-aizu.ac.jp/onlinejudge/submission.jsp# 
