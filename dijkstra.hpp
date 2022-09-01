@@ -6,8 +6,6 @@
 #include <limits>
 #include <vector>
 
-#include <iostream>
-
 template <typename CostType>
 class Dijkstra {
   using State = std::pair<CostType, int>;
