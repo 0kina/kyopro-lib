@@ -46,6 +46,11 @@
     * `solve()`の実行後に呼ぶことで，計算した全域森を返す．
     * 全域森は，各辺を表す`tuple`<頂点, 頂点, コスト>の`vector`で表される．
 
+* runlength:
+  * `vector<pair<T, int>> runlength(ForwardIterator first, ForwardIterator last)`
+    * `ForwardIterator`は`T`を要素にもつコンテナのフォワードイテレータである必要がある．
+    * `first`から`last`をランレングス符号化し，（値，連続数）の`pair`で構成される`vector`を返す．
+
 * scc:
   * `SCC(int n)`
     * `n`: `グラフの頂点数．
@@ -85,6 +90,7 @@
 ## バリデーション
 * dijkstra: https://judge.yosupo.jp/submission/102399
 * kruskal: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6934332#1
+* runlength: https://atcoder.jp/contests/abc019/submissions/34605758
 * scc: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6937226#1
 * union_find: https://judge.yosupo.jp/submission/102091
 
@@ -94,6 +100,5 @@
   * lower_bound: https://atcoder.jp/contests/arc033/submissions/29947667
 * indexed_segment_tree: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6318014#1
 * modint: https://atcoder.jp/contests/abc055/submissions/29173328
-* runlength: https://atcoder.jp/contests/abc019/submissions/30513094
 * segment_tree: https://judge.yosupo.jp/submission/78395
 * topological_sort: https://judge.u-aizu.ac.jp/onlinejudge/submission.jsp# 
