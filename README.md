@@ -73,6 +73,23 @@
   * `vector<vector<int>> scc()`
     * 第`i`成分が強連結成分番号`i`である頂点集合となるような2次元`vector`を返す．
 
+* topological_sort:
+  * `TopologicalSort(int n)`
+  * `TopologicalSort(const vector<vector<int>>& graph, const vector<int>& in_degree)`
+  * `TopologicalSort(const vector<vector<int>>& graph)`
+    * `n`: グラフの頂点数。
+    * `graph`: 有向グラフの隣接リスト。
+    * `in_degree`: 各頂点の入次数。
+
+  * `void add_edge(int from, int to)`
+    * 有向辺の追加。
+
+  * `void solve()`
+    * トポロジカルソートの計算。
+
+  * `vector<int> sorted()`
+    * ソートした頂点列を返す。
+
 * union_find:
   * `UnionFind(int n)`
     * `n`: 集合の要素数．
@@ -101,4 +118,4 @@
   * lower_bound: https://atcoder.jp/contests/arc033/submissions/29947667
 * indexed_segment_tree: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6318014#1
 * segment_tree: https://judge.yosupo.jp/submission/78395
-* topological_sort: https://judge.u-aizu.ac.jp/onlinejudge/submission.jsp# 
+* topological_sort: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6940546#1
