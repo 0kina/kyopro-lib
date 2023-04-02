@@ -8,7 +8,7 @@
 #include <vector>
 
 class SCC {
- public:
+public:
   explicit SCC(const int n) : _n(n), _comp(n, -1), _g(n), _rev_g(n) {};
 
   void add_edge(const int from, const int to) {
@@ -65,7 +65,7 @@ class SCC {
     return ret;
   }
 
- private:
+private:
   int _n, _n_comp;
   std::vector<int> _comp;
   std::vector<std::vector<int>> _g, _rev_g;
@@ -81,7 +81,7 @@ class SCC {
     order.push_back(u);
   }
 
-  void _rdfs(int u, int comp_idx, std::vector<int> &comp, std::map<int, int> siz) {
+  void _rdfs(int u, int comp_idx, std::vector<int> &comp, std::map<int, int> &siz) {
     comp[u] = comp_idx;
     ++siz[comp_idx];
     for (int v : _rev_g[u]) {
