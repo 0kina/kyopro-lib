@@ -1,0 +1,137 @@
+\hypertarget{modint_8hpp_source}{}\doxysection{modint.\+hpp}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ OKINA\_MODINT}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ OKINA\_MODINT}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mod_int}{ModInt}}\ \{}
+\DoxyCodeLine{00009\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ x)\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ this-\/>x\ =\ x\ \%\ mod;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>x\ <\ 0)\ this-\/>x\ +=\ mod;}
+\DoxyCodeLine{00013\ \ \ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&\ operator+=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&right)\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{if}\ ((x\ +=\ right.x)\ >=\ mod)\ x\ -\/=\ mod;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00018\ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&\ operator-\/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&right)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}\ ((x\ -\/=\ right.x)\ <\ 0)\ x\ +=\ mod;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00023\ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&\ operator*=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&right)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ (x\ *=\ right.x)\ \%=\ mod;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00028\ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&\ operator/=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&right)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ (x\ *=\ right.inv())\ \%=\ mod;}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ return\ *this;}}
+\DoxyCodeLine{00033\ \ \ \ \ LL\ a\ =\ right.get\_x(),\ b\ =\ mod,\ u\ =\ 1,\ v\ =\ 0;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{while}\ (b)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ LL\ t\ =\ a\ /\ b;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ a\ -\/=\ t\ *\ b;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ swap(a,\ b);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ u\ -\/=\ t\ *\ v;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ swap(u,\ v);}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ x\ =\ x\ *\ u\ \%\ mod;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <\ 0)\ x\ +=\ mod;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00045\ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ pow(\textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&exp)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{if}\ (!x\ ||\ exp\ ==\ 0)\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}(1);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ m\ =\ pow(exp\ /\ 2);}
+\DoxyCodeLine{00051\ \ \ \ \ m\ *=\ m;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (exp\ \&\ 1)\ m\ *=\ x;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00054\ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ inv()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{return}\ pow(mod\ -\/\ 2);}
+\DoxyCodeLine{00058\ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ get\_x()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{00062\ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ x;}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{template}<\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00069\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ operator+(\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ left,\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ right)\ \{}
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ res\ =\ left;}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordflow}{return}\ res\ +=\ right;}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}<\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00075\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ operator-\/(\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ left,\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ right)\ \{}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ res\ =\ left;}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordflow}{return}\ res\ -\/=\ right;}
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{template}<\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00081\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ operator*(\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ left,\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ right)\ \{}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ res\ =\ left;}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordflow}{return}\ res\ *=\ right;}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{template}<\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00087\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ operator/(\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ left,\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ right)\ \{}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ res\ =\ left;}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{return}\ res\ /=\ right;}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00094\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ choose(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ n,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ k)\ \{}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordflow}{if}\ (n\ <\ k\ ||\ k\ <\ 0)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00096\ \ \ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ ret(1);}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordflow}{for}\ (LL\ i\ =\ 0;\ i\ <\ k;\ ++i)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ ret\ *=\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}(n\ -\/\ i);}
+\DoxyCodeLine{00099\ \ \ \ \ ret\ *=\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}(k\ -\/\ i).inv();}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{void}\ calc\_fact(\textcolor{keywordtype}{int}\ n,\ std::vector<\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}>\ \&fact)\ \{}
+\DoxyCodeLine{00107\ \ \ fact.push\_back(1);}
+\DoxyCodeLine{00108\ \ \ fact.push\_back(1);}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 2;\ i\ <=\ n;\ ++i)\ fact.push\_back(fact[i\ -\/\ 1]\ *\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}(i));}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00111\ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ calc\_inv\_fact(\textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}>\ \&fact,\ std::vector<\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}>\ \&inv\_fact)\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (int)fact.size();\ ++i)\ inv\_fact.push\_back(\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}(1)\ /\ fact[i]);}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00120\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ choose(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ n,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ k,\ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}>\ \&fact,\ \textcolor{keyword}{const}\ std::vector<\mbox{\hyperlink{class_mod_int}{ModInt<mod>}}>\ \&inv\_fact)\ \{}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{if}\ (n\ <\ k\ ||\ k\ <\ 0)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordflow}{return}\ fact[n]\ *\ inv\_fact[k]\ *\ inv\_fact[n\ -\/\ k];}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mod>}
+\DoxyCodeLine{00127\ std::ostream\ \&operator<<(std::ostream\ \&ost,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_mod_int}{ModInt<mod>}}\ \&m)\ \{}
+\DoxyCodeLine{00128\ \ \ ost\ <<\ m.get\_x();}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordflow}{return}\ ost;}
+\DoxyCodeLine{00130\ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

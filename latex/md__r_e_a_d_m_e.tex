@@ -1,0 +1,172 @@
+
+\begin{DoxyItemize}
+\item シグネチャ
+\item バリデーション
+\begin{DoxyItemize}
+\item old
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{シグネチャ}\label{md__r_e_a_d_m_e_autotoc_md1}
+
+\begin{DoxyItemize}
+\item dijkstra\+:
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{class_dijkstra}{Dijkstra}}\texorpdfstring{$<$}{<}Cost\+Type\texorpdfstring{$>$}{>}(const int n, int src)}
+\begin{DoxyItemize}
+\item {\ttfamily n}\+: グラフの頂点数．
+\item {\ttfamily Cost\+Type}\+: 辺の重みの型．{\ttfamily int}または{\ttfamily long long}．
+\item {\ttfamily src}\+: 始点．
+\end{DoxyItemize}
+\item {\ttfamily void add\+\_\+edge(const int u, const int v, const Cost\+Type c)}
+\begin{DoxyItemize}
+\item 2頂点{\ttfamily u}, {\ttfamily v}間を結ぶコスト{\ttfamily c}の有向辺を追加．
+\end{DoxyItemize}
+\item {\ttfamily void solve()}
+\begin{DoxyItemize}
+\item 最短経路を計算する．
+\end{DoxyItemize}
+\item {\ttfamily bool is\+\_\+reachable(int t)}
+\begin{DoxyItemize}
+\item 頂点{\ttfamily t}に到達可能かどうかを返す．
+\end{DoxyItemize}
+\item {\ttfamily Cost\+Type distance\+\_\+to(int t)}
+\begin{DoxyItemize}
+\item {\ttfamily is\+\_\+reachable(t)}が{\ttfamily true}であるときに頂点{\ttfamily t}までの距離を返す．
+\end{DoxyItemize}
+\item {\ttfamily pair\texorpdfstring{$<$}{<}bool, vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} path\+\_\+to(int t)}
+\begin{DoxyItemize}
+\item {\ttfamily is\+\_\+reachable(t)}が{\ttfamily true}であるときに，頂点{\ttfamily t}までのパスを表す頂点列を{\ttfamily vector}で返す．
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item kruskal\+:
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{class_kruskal}{Kruskal}}\texorpdfstring{$<$}{<}Cost\+Type\texorpdfstring{$>$}{>}(int n)}
+\begin{DoxyItemize}
+\item {\ttfamily Cost\+Type}\+: 辺の重みの型．{\ttfamily int}または{\ttfamily long long}．
+\item {\ttfamily n}\+: \`{}グラフの頂点数．
+\end{DoxyItemize}
+\item {\ttfamily void add\+\_\+edge(const int u, const int v, const Cost\+Type c)}
+\begin{DoxyItemize}
+\item 2頂点{\ttfamily u}, {\ttfamily v}間を結ぶコスト{\ttfamily c}の無向辺を追加．
+\end{DoxyItemize}
+\item {\ttfamily void solve()}
+\begin{DoxyItemize}
+\item 現段階での最小全域森を求める．
+\end{DoxyItemize}
+\item {\ttfamily bool is\+\_\+mst()}
+\begin{DoxyItemize}
+\item {\ttfamily solve()}の実行後に呼ぶことで，計算した全域森が全域木であるかどうかを返す．
+\end{DoxyItemize}
+\item {\ttfamily Cost\+Type get\+\_\+cost\+\_\+sum()}
+\begin{DoxyItemize}
+\item {\ttfamily solve()}の実行後に呼ぶことで，計算した全域森の合計コストを返す．
+\end{DoxyItemize}
+\item {\ttfamily vector\texorpdfstring{$<$}{<}tuple\texorpdfstring{$<$}{<}int, int, Cost\+Type\texorpdfstring{$>$}{>} get\+\_\+msf}
+\begin{DoxyItemize}
+\item {\ttfamily solve()}の実行後に呼ぶことで，計算した全域森を返す．
+\item 全域森は，各辺を表す{\ttfamily tuple}\texorpdfstring{$<$}{<}頂点, 頂点, コスト\texorpdfstring{$>$}{>}の{\ttfamily vector}で表される．
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item runlength\+:
+\begin{DoxyItemize}
+\item {\ttfamily vector\texorpdfstring{$<$}{<}pair\texorpdfstring{$<$}{<}T, int\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} runlength(\+Forward\+Iterator first, Forward\+Iterator last)}
+\begin{DoxyItemize}
+\item {\ttfamily Forward\+Iterator}は{\ttfamily T}を要素にもつコンテナのフォワードイテレータである必要がある．
+\item {\ttfamily first}から{\ttfamily last}をランレングス符号化し，（値，連続数）の{\ttfamily pair}で構成される{\ttfamily vector}を返す．
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item scc\+:
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{class_s_c_c}{SCC(int n)}}}
+\begin{DoxyItemize}
+\item {\ttfamily n}\+: \`{}グラフの頂点数．
+\end{DoxyItemize}
+\item {\ttfamily void add\+\_\+edge(const int from, const int to)}
+\begin{DoxyItemize}
+\item 2頂点{\ttfamily from}, {\ttfamily to}間を結ぶ有向辺を追加．
+\end{DoxyItemize}
+\item {\ttfamily void solve()}
+\begin{DoxyItemize}
+\item 強連結成分を計算．
+\end{DoxyItemize}
+\item {\ttfamily vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>} comp()}
+\begin{DoxyItemize}
+\item 各頂点の強連結成分番号を表すサイズ{\ttfamily n}の{\ttfamily vector}を返す．
+\end{DoxyItemize}
+\item {\ttfamily bool is\+\_\+same(const int u, const int v)}
+\begin{DoxyItemize}
+\item 2頂点{\ttfamily u}, {\ttfamily v}が同じ強連結成分に属するかどうかを返す．
+\end{DoxyItemize}
+\item {\ttfamily int comp\+\_\+size(const int u)}
+\begin{DoxyItemize}
+\item 頂点{\ttfamily u}が属する強連結成分のサイズを返す．
+\end{DoxyItemize}
+\item {\ttfamily vector\texorpdfstring{$<$}{<}vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} scc()}
+\begin{DoxyItemize}
+\item 第{\ttfamily i}成分が強連結成分番号{\ttfamily i}である頂点集合となるような2次元{\ttfamily vector}を返す．
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item topological\+\_\+sort\+:
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{class_topological_sort}{Topological\+Sort(int n)}}}
+\item {\ttfamily \mbox{\hyperlink{class_topological_sort}{Topological\+Sort}}(const vector\texorpdfstring{$<$}{<}vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\& graph, const vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}\& in\+\_\+degree)}
+\item {\ttfamily \mbox{\hyperlink{class_topological_sort}{Topological\+Sort}}(const vector\texorpdfstring{$<$}{<}vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\& graph)}
+\begin{DoxyItemize}
+\item {\ttfamily n}\+: グラフの頂点数。
+\item {\ttfamily graph}\+: 有向グラフの隣接リスト。
+\item {\ttfamily in\+\_\+degree}\+: 各頂点の入次数。
+\end{DoxyItemize}
+\item {\ttfamily void add\+\_\+edge(int from, int to)}
+\begin{DoxyItemize}
+\item 有向辺の追加。
+\end{DoxyItemize}
+\item {\ttfamily void solve()}
+\begin{DoxyItemize}
+\item トポロジカルソートの計算。
+\end{DoxyItemize}
+\item {\ttfamily vector\texorpdfstring{$<$}{<}int\texorpdfstring{$>$}{>} sorted()}
+\begin{DoxyItemize}
+\item ソートした頂点列を返す。
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item union\+\_\+find\+:
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{class_union_find}{Union\+Find(int n)}}}
+\begin{DoxyItemize}
+\item {\ttfamily n}\+: 集合の要素数．
+\item {\ttfamily int root(int x)}
+\begin{DoxyItemize}
+\item 要素{\ttfamily x}に対する代表元を返す．
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily bool is\+\_\+same(int x, int y)}
+\begin{DoxyItemize}
+\item {\ttfamily x}, {\ttfamily y}が同じグループに属している場合は{\ttfamily true}を返す．
+\item そうでない場合は{\ttfamily false}を返す．
+\end{DoxyItemize}
+\item {\ttfamily bool unite(int x, int y)}
+\begin{DoxyItemize}
+\item {\ttfamily x}, {\ttfamily y}が同じグループに属している場合は{\ttfamily false}を返し，何もしない．
+\item そうでない場合は{\ttfamily x}の属するグループと{\ttfamily y}の属するグループを合併し，{\ttfamily true}を返す．
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{バリデーション}\label{md__r_e_a_d_m_e_autotoc_md2}
+
+\begin{DoxyItemize}
+\item dijkstra\+: \href{https://judge.yosupo.jp/submission/102399}{\texttt{ https\+://judge.\+yosupo.\+jp/submission/102399}}
+\item kruskal\+: \href{https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6934332\#1}{\texttt{ https\+://judge.\+u-\/aizu.\+ac.\+jp/onlinejudge/review.\+jsp?rid=6934332\#1}}
+\item modint\+: \href{https://atcoder.jp/contests/abc055/submissions/29173328}{\texttt{ https\+://atcoder.\+jp/contests/abc055/submissions/29173328}}
+\item runlength\+: \href{https://atcoder.jp/contests/abc019/submissions/34605758}{\texttt{ https\+://atcoder.\+jp/contests/abc019/submissions/34605758}}
+\item scc\+: \href{https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6937226\#1}{\texttt{ https\+://judge.\+u-\/aizu.\+ac.\+jp/onlinejudge/review.\+jsp?rid=6937226\#1}}
+\item union\+\_\+find\+: \href{https://judge.yosupo.jp/submission/102091}{\texttt{ https\+://judge.\+yosupo.\+jp/submission/102091}}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysubsection{old}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyItemize}
+\item fenwick\+\_\+tree\+:
+\begin{DoxyItemize}
+\item add, sum\+: \href{https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6381675\#1}{\texttt{ https\+://judge.\+u-\/aizu.\+ac.\+jp/onlinejudge/review.\+jsp?rid=6381675\#1}}
+\item lower\+\_\+bound\+: \href{https://atcoder.jp/contests/arc033/submissions/29947667}{\texttt{ https\+://atcoder.\+jp/contests/arc033/submissions/29947667}}
+\end{DoxyItemize}
+\item indexed\+\_\+segment\+\_\+tree\+: \href{https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6318014\#1}{\texttt{ https\+://judge.\+u-\/aizu.\+ac.\+jp/onlinejudge/review.\+jsp?rid=6318014\#1}}
+\item segment\+\_\+tree\+: \href{https://judge.yosupo.jp/submission/78395}{\texttt{ https\+://judge.\+yosupo.\+jp/submission/78395}}
+\item topological\+\_\+sort\+: \href{https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=6940546\#1}{\texttt{ https\+://judge.\+u-\/aizu.\+ac.\+jp/onlinejudge/review.\+jsp?rid=6940546\#1}} 
+\end{DoxyItemize}
