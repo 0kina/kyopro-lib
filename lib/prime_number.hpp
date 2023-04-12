@@ -1,7 +1,7 @@
 /**
- * @file prime_numbers.hpp
+ * @file prime_number.hpp
  * @brief 素数に関するコード
- *
+ * @example prime_number_test.cpp
  */
 #pragma once
 

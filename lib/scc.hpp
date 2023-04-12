@@ -1,7 +1,6 @@
 /**
  * @file scc.hpp
  * @brief 強連結成分分解に関するコード
- *
  * @example scc_test.cpp
  */
 #pragma once

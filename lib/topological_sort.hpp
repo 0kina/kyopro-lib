@@ -1,7 +1,6 @@
 /**
  * @file topological_sort.hpp
  * @brief トポロジカルソートに関するコード
- *
  * @example topological_sort_test.cpp
  */
 #pragma once
