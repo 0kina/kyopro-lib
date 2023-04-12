@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['topologicalsort_0',['TopologicalSort',['../class_topological_sort.html#abd73f4d16199a83c9bd219ba3779c1da',1,'TopologicalSort']]]
+  ['make_5fis_5fprime_0',['make_is_prime',['../prime__numbers_8hpp.html#af40699c93a844794d431eff90cb31613',1,'prime_numbers.hpp']]]
 ];

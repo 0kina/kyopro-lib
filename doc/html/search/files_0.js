@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scc_2ehpp_0',['scc.hpp',['../scc_8hpp.html',1,'']]]
+  ['prime_5fnumbers_2ehpp_0',['prime_numbers.hpp',['../prime__numbers_8hpp.html',1,'']]]
 ];

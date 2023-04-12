@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lazysegmenttree_0',['LazySegmentTree',['../class_lazy_segment_tree.html',1,'']]]
+  ['kruskal_0',['Kruskal',['../class_kruskal.html',1,'']]]
 ];

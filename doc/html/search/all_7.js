@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modint_0',['ModInt',['../class_mod_int.html',1,'']]]
+  ['lazysegmenttree_0',['LazySegmentTree',['../class_lazy_segment_tree.html',1,'']]]
 ];
