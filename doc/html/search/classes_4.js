@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kruskal_0',['Kruskal',['../class_kruskal.html',1,'']]]
+  ['indexedsegmenttree_0',['IndexedSegmentTree',['../class_indexed_segment_tree.html',1,'']]]
 ];

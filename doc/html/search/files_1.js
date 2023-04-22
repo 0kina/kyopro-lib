@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['prime_5fnumber_2ehpp_0',['prime_number.hpp',['../prime__number_8hpp.html',1,'']]]
+  ['modint_2ehpp_0',['modint.hpp',['../modint_8hpp.html',1,'']]]
 ];

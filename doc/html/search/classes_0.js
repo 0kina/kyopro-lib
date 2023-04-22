@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dijkstra_0',['Dijkstra',['../class_dijkstra.html',1,'']]]
+  ['coordcomp_0',['CoordComp',['../class_coord_comp.html',1,'']]]
 ];
