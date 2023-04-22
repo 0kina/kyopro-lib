@@ -23,6 +23,10 @@ public:
     return std::lower_bound(begin(_order), end(_order), coordinate) - begin(order);
   }
 
+  std::vector<T> get_coords() const {
+    return _order;
+  }
+
 private:
   std::vector<T> _order;
 };
