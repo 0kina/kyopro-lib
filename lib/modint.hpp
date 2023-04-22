@@ -6,7 +6,7 @@
 
 template <long long mod>
 class ModInt {
- public:
+public:
   ModInt<mod>(long long x) {
     this->x = x % mod;
     if (this->x < 0) this->x += mod;
@@ -61,7 +61,7 @@ class ModInt {
     return x;
   }
 
- private:
+private:
   long long x;
 };
 
