@@ -1,5 +1,9 @@
-#ifndef OKINA_MODINT
-#define OKINA_MODINT
+/**
+ * @file modint.hpp
+ * @brief 素数を法とするmodに関するコード。
+ * @details mod Pでの演算をサポート。
+ */
+#pragma once
 
 #include <ostream>
 #include <vector>
@@ -112,25 +116,45 @@ ModInt<mod> choose(long long n, long long k) {
   return ret;
 }
 
+/**
+ * @brief 閾値以下の自然数に対し、階乗を計算。
+ * @param n 階乗を求める整数の最大値。
+ * @return n以下の階乗を保持する配列。
+ */
 template <long long mod>
-void calc_fact(int n, std::vector<ModInt<mod>> &fact) {
+std::vector<ModInt<mod>> calc_fact(int n) {
+  std::vector<ModInt<mod>> fact;
   fact.push_back(1);
   fact.push_back(1);
   for (int i = 2; i <= n; ++i) fact.push_back(fact[i - 1] * ModInt<mod>(i));
-  return;
+  return fact;
 }
 
+/**
+ * @brief 閾値以下の自然数に対し、階乗の逆数を計算。
+ * @param n 階乗を求める整数の最大値。
+ * @return n以下の階乗の逆数を保持する配列。
+ */
 template <long long mod>
 void calc_inv_fact(const std::vector<ModInt<mod>> &fact, std::vector<ModInt<mod>> &inv_fact) {
   for (int i = 0; i < (int)fact.size(); ++i) inv_fact.push_back(ModInt<mod>(1) / fact[i]);
   return;
 }
 
+/**
+ * @brief n choose kを計算。
+ * @param n 元の総数。
+ * @param k 選択する元の個数。
+ * @param fact_n nの階乗。
+ * @param inv_fact_k kの階乗の逆数。
+ * @param inv_fact_n_minus_k (n - k)の階乗の逆数。
+ * @return n choose k。
+ */
 template <long long mod>
-ModInt<mod> choose(long long n, long long k, const std::vector<ModInt<mod>> &fact, const std::vector<ModInt<mod>> &inv_fact) {
+ModInt<mod> choose(long long n, long long k, ModInt<mod> fact_n, ModInt<mod> inv_fact_k, ModInt<mod> inv_fact_n_minus_k) {
   if (n < k || k < 0) return 0;
 
-  return fact[n] * inv_fact[k] * inv_fact[n - k];
+  return fact_n * inv_fact_k * inv_fact_n_minus_k;
 }
 
 template <long long mod>
@@ -138,5 +162,3 @@ std::ostream &operator<<(std::ostream &ost, const ModInt<mod> &m) {
   ost << m.get_x();
   return ost;
 };
-
-#endif
