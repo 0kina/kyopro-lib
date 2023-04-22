@@ -3,7 +3,8 @@
  * @brief 素数に関するコード
  * @example prime_number_test.cpp
  */
-#pragma once
+#ifndef OKINA_PRIME_NUMBER
+#define OKINA_PRIME_NUMBER
 
 #include <vector>
 
@@ -52,3 +53,5 @@ std::vector<int> enum_prime_nums(int n) {
 
   return prime_nums;
 }
+
+#endif // OKINA_PRIME_NUMBER

@@ -4,7 +4,8 @@
  * @details 不変な数列の区間に対するクエリに答えられる。ただし、演算は結合則と冪等則を満たす必要がある。
  * @example sparse_table_test.cpp
  */
-#pragma once
+#ifndef OKINA_SPARSE_TABLE
+#define OKINA_SPARSE_TABLE
 
 #include <functional>
 #include <vector>
@@ -76,3 +77,5 @@ private:
   std::vector<int> _log_table;
   std::vector<std::vector<int>> _table;
 };
+
+#endif // OKINA_SPARSE_TABLE

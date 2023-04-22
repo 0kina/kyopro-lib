@@ -3,7 +3,8 @@
  * @brief 強連結成分分解に関するコード
  * @example scc_test.cpp
  */
-#pragma once
+#ifndef OKINA_SCC
+#define OKINA_SCC
 
 #include <algorithm>
 #include <cassert>
@@ -125,3 +126,5 @@ private:
   }
 
 };
+
+#endif // OKINA_SCC

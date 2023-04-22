@@ -2,7 +2,8 @@
  * @file coordinates_compression.hpp
  * @brief 座標圧縮に関するコード。
  */
-#pragma once
+#ifndef OKINA_COORDINATES_COMPRESSION
+#define OKINA_COORDINATES_COMPRESSION
 
 #include <vector>
 
@@ -20,7 +21,7 @@ public:
    * @return 圧縮後の座標。
    */
   int pos(const T coordinate) {
-    return std::lower_bound(begin(_order), end(_order), coordinate) - begin(order);
+    return std::lower_bound(begin(_order), end(_order), coordinate) - begin(_order);
   }
 
   std::vector<T> get_coords() const {
@@ -30,3 +31,5 @@ public:
 private:
   std::vector<T> _order;
 };
+
+#endif // OKINA_COORDINATES_COMPRESSION

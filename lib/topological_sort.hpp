@@ -3,7 +3,8 @@
  * @brief トポロジカルソートに関するコード
  * @example topological_sort_test.cpp
  */
-#pragma once
+#ifndef OKINA_TOPOLOGICAL_SORT
+#define OKINA_TOPOLOGICAL_SORT
 
 #include <cassert>
 #include <queue>
@@ -75,3 +76,5 @@ private:
     }
   }
 };
+
+#endif // OKINA_TOPOLOGICAL_SORT
