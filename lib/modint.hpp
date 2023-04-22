@@ -30,9 +30,9 @@ class ModInt {
   ModInt<mod> & operator/=(const ModInt<mod> &right) {
     // (x *= right.inv()) %= mod;
     // return *this;
-    LL a = right.get_x(), b = mod, u = 1, v = 0;
+    long long a = right.get_x(), b = mod, u = 1, v = 0;
     while (b) {
-      LL t = a / b;
+      long long t = a / b;
       a -= t * b;
       swap(a, b);
       u -= t * v;
@@ -66,6 +66,16 @@ class ModInt {
 };
 
 template<long long mod>
+bool operator==(ModInt<mod> left, ModInt<mod> right) {
+  return left.get_x() == right.get_x();
+}
+
+template<long long mod>
+bool operator!=(ModInt<mod> left, ModInt<mod> right) {
+  return !(left == right);
+}
+
+template<long long mod>
 ModInt<mod> operator+(ModInt<mod> left, ModInt<mod> right) {
   ModInt<mod> res = left;
   return res += right;
@@ -94,7 +104,7 @@ template <long long mod>
 ModInt<mod> choose(long long n, long long k) {
   if (n < k || k < 0) return 0;
   ModInt<mod> ret(1);
-  for (LL i = 0; i < k; ++i) {
+  for (long long i = 0; i < k; ++i) {
     ret *= ModInt<mod>(n - i);
     ret *= ModInt<mod>(k - i).inv();
   }
