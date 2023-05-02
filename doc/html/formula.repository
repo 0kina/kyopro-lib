@@ -1,0 +1,22 @@
+\_form#0=11x11:$ a^2 $
+\_form#1=110x16:$ \hat{f}(t) = \sum_{i = 0}^{n - 1} f(\zeta_n^i) t^i $
+\_form#2=11x13:$ \zeta_n $
+\_form#3=73x16:$ \hat{f}(\zeta_n^{-k}) = nc_k $
+\_form#4=46x14:$ f(x)g(x) $
+\_form#5=128x18:$ f(t) = \frac{1}{n} \sum_{i = 0}^{n - 1} \hat{f}(\zeta_n^{-i}) t^i $
+\_form#6=103x18:$ C_k = \sum_{i = 0}^k A_i B_{k - i} $
+\_form#7=78x94:\begin{eqnarray*}
+ a& = &1 \\
+ b& = &0 \\
+ c& = &-4 \\
+ x& = &\frac{\pm\sqrt{16}}{2} \\
+ & = &\pm2
+ \end{eqnarray*}
+\_form#8=230x14:\begin{equation} x = y \end{equation}
+\_form#9=71x9:\begin{eqnarray*} x &= y  &= z \end{eqnarray*}
+\_form#10=40x25:\begin{eqnarray*} x &= y \\ &= z \end{eqnarray*}
+\_form#11=49x25:\begin{eqnarray*} x &=& y \\ &=& z \end{eqnarray*}
+\_form#12=153x81:\begin{eqnarray*} \hat{g * h}(t) &=& \sum_{i = 0}^{n - 1} (g * h)(\zeta_n^i) \\
+                              &=& \sum_{i = 0}^{n - 1} g(\zeta_n^i) h(\zeta_n^i) \end{eqnarray*}
+\_form#13=153x81:\begin{eqnarray*} \widehat{g * h}(t) &=& \sum_{i = 0}^{n - 1} (g * h)(\zeta_n^i) \\
+                              &=& \sum_{i = 0}^{n - 1} g(\zeta_n^i) h(\zeta_n^i) \end{eqnarray*}

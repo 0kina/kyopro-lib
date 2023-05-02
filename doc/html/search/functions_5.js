@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['query_0',['query',['../class_sparse_table.html#abbc759df6ad412a936b327891f6ed913',1,'SparseTable']]]
+  ['pos_0',['pos',['../class_coord_comp.html#a0e57c62b3bcdaf2aea7939e25247f8b1',1,'CoordComp']]]
 ];

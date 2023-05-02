@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['make_5fis_5fprime_0',['make_is_prime',['../prime__number_8hpp.html#af40699c93a844794d431eff90cb31613',1,'prime_number.hpp']]]
+  ['is_5fsame_0',['is_same',['../class_s_c_c.html#a546856fb20e319d63f74f5861c093b81',1,'SCC']]],
+  ['is_5fsortable_1',['is_sortable',['../class_topological_sort.html#ae14c5362f367ed48bb35ea6aabeda353',1,'TopologicalSort']]]
 ];
