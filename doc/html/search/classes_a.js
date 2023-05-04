@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['topologicalsort_0',['TopologicalSort',['../class_topological_sort.html',1,'']]]
+  ['unionfind_0',['UnionFind',['../class_union_find.html',1,'']]]
 ];

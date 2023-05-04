@@ -79,65 +79,17 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a87b68e8b1db45adc83d3018b3843a503"><td class="memItemLeft" align="right" valign="top">static func&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_f_t.html#a87b68e8b1db45adc83d3018b3843a503">dft</a> (const func &amp;base_func, bool is_invert)</td></tr>
-<tr class="memdesc:a87b68e8b1db45adc83d3018b3843a503"><td class="mdescLeft">&#160;</td><td class="mdescRight">関数のDFTを求める。  <br /></td></tr>
-<tr class="separator:a87b68e8b1db45adc83d3018b3843a503"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5597491a2576353b77d374202fe0f936"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5597491a2576353b77d374202fe0f936"><td class="memTemplItemLeft" align="right" valign="top">static std::vector&lt; double &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_f_t.html#a5597491a2576353b77d374202fe0f936">multiply</a> (const std::vector&lt; T &gt; &amp;f, const std::vector&lt; T &gt; &amp;g)</td></tr>
-<tr class="memdesc:a5597491a2576353b77d374202fe0f936"><td class="mdescLeft">&#160;</td><td class="mdescRight">2つの多項式を畳み込む  <br /></td></tr>
-<tr class="separator:a5597491a2576353b77d374202fe0f936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a782790014fdbffc367b1613d326ecd86"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; <a class="el" href="class_mod_int.html">mint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_f_t.html#a782790014fdbffc367b1613d326ecd86">ntt</a> (const std::vector&lt; <a class="el" href="class_mod_int.html">mint</a> &gt; &amp;f, int depth, const std::vector&lt; <a class="el" href="class_mod_int.html">mint</a> &gt; &amp;root)</td></tr>
+<tr class="memdesc:a782790014fdbffc367b1613d326ecd86"><td class="mdescLeft">&#160;</td><td class="mdescRight">多項式関数のDFTをNTTを用いて求める。  <br /></td></tr>
+<tr class="separator:a782790014fdbffc367b1613d326ecd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ba9cf9738a185b8e634e694512d0ac"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab5ba9cf9738a185b8e634e694512d0ac"><td class="memTemplItemLeft" align="right" valign="top">static std::vector&lt; long long &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_f_t.html#ab5ba9cf9738a185b8e634e694512d0ac">multiply</a> (const std::vector&lt; T &gt; &amp;f, const std::vector&lt; T &gt; &amp;g)</td></tr>
+<tr class="memdesc:ab5ba9cf9738a185b8e634e694512d0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">2つの多項式を畳み込む。2つの多項式の次数が等しい2冪の数であることが必要。  <br /></td></tr>
+<tr class="separator:ab5ba9cf9738a185b8e634e694512d0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a87b68e8b1db45adc83d3018b3843a503" name="a87b68e8b1db45adc83d3018b3843a503"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87b68e8b1db45adc83d3018b3843a503">&#9670;&#160;</a></span>dft()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static func FFT::dft </td>
-          <td>(</td>
-          <td class="paramtype">const func &amp;&#160;</td>
-          <td class="paramname"><em>base_func</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>is_invert</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>関数のDFTを求める。 </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">base_func</td><td>関数。 </td></tr>
-    <tr><td class="paramname">is_invert</td><td>IDFTを求める場合はtrue。 </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>base_funcのDFT。 </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="fft_example_8cpp-example.html#a0">fft_example.cpp</a>.</dd>
-</dl>
-
-</div>
-</div>
-<a id="a5597491a2576353b77d374202fe0f936" name="a5597491a2576353b77d374202fe0f936"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5597491a2576353b77d374202fe0f936">&#9670;&#160;</a></span>multiply()</h2>
+<a id="ab5ba9cf9738a185b8e634e694512d0ac" name="ab5ba9cf9738a185b8e634e694512d0ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ba9cf9738a185b8e634e694512d0ac">&#9670;&#160;</a></span>multiply()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +100,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::vector&lt; double &gt; FFT::multiply </td>
+          <td class="memname">static std::vector&lt; long long &gt; FFT::multiply </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>f</em>, </td>
@@ -172,7 +124,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>2つの多項式を畳み込む </p>
+<p>2つの多項式を畳み込む。2つの多項式の次数が等しい2冪の数であることが必要。 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">f</td><td>1つ目の多項式。 </td></tr>
@@ -181,8 +133,61 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::vector&lt;double&gt; 畳み込み結果の多項式。 </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="fft_example_8cpp-example.html#a1">fft_example.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="fft_example_8cpp-example.html#a0">fft_example.cpp</a>.</dd>
 </dl>
+
+</div>
+</div>
+<a id="a782790014fdbffc367b1613d326ecd86" name="a782790014fdbffc367b1613d326ecd86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a782790014fdbffc367b1613d326ecd86">&#9670;&#160;</a></span>ntt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::vector&lt; <a class="el" href="class_mod_int.html">mint</a> &gt; FFT::ntt </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_mod_int.html">mint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>depth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_mod_int.html">mint</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>root</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>多項式関数のDFTをNTTを用いて求める。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>多項式関数。 </td></tr>
+    <tr><td class="paramname">depth</td><td>lg(fの項数)。 </td></tr>
+    <tr><td class="paramname">root</td><td>MOD 998244353での2冪乗根。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>fのDFT。 </dd></dl>
 
 </div>
 </div>

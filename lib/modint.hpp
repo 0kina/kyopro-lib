@@ -4,8 +4,6 @@
  * @brief 素数を法とするmodに関するコード。
  * @details mod Pでの演算をサポート。
  */
-// #ifndef OKINA_MODINT
-// #define OKINA_MODINT
 
 #include <ostream>
 #include <vector>
@@ -164,5 +162,3 @@ std::ostream &operator<<(std::ostream &ost, const ModInt<mod> &m) {
   ost << m.get_x();
   return ost;
 };
-
-// #endif // OKINA_MODINT

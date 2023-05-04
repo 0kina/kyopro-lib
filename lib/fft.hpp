@@ -22,9 +22,6 @@
  * @example fft_example.cpp
  */
 
-// #ifndef OKINA_FFT
-// #define OKINA_FFT
-
 #include <cassert>
 #include <cmath>
 #include <vector>
@@ -119,5 +116,3 @@ public:
     return res;
   }
 }; // class FFT
-
-// #endif // OKINA_FFT

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ntt_0',['NTT',['../class_n_t_t.html',1,'']]]
+  ['ntt_0',['ntt',['../class_f_f_t.html#a782790014fdbffc367b1613d326ecd86',1,'FFT']]]
 ];

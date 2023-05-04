@@ -90,14 +90,11 @@ $(function() {
 <div class="line"><span class="comment">* Calculated FG: 3X^5 + 16X^4 + 35X^3 + 39X^2 + 19X^1 + 2X^0</span></div>
 <div class="line"><span class="comment">*/</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">using </span>func = vector&lt;complex&lt;double&gt;&gt;;</div>
-<div class="line"> </div>
-<div class="line">std::string func_to_string(func f, <span class="keywordtype">int</span> n) {</div>
+<div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line">std::string func_to_string(vector&lt;T&gt; f, <span class="keywordtype">int</span> n) {</div>
 <div class="line">  ostringstream ost;</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = n - 1; i &gt;= 0; --i) {</div>
-<div class="line">    <span class="keywordtype">double</span> c = f[i].real();</div>
-<div class="line">    <span class="keywordflow">if</span> (abs(c) &lt; 1e-10) c = 0;</div>
-<div class="line">    ost &lt;&lt; c &lt;&lt; <span class="stringliteral">&quot;X^&quot;</span> &lt;&lt; i;</div>
+<div class="line">    ost &lt;&lt; f[i] &lt;&lt; <span class="stringliteral">&quot;X^&quot;</span> &lt;&lt; i;</div>
 <div class="line">    <span class="keywordflow">if</span> (i &gt; 0) ost &lt;&lt; <span class="stringliteral">&quot; + &quot;</span>;</div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">return</span> ost.str();</div>
@@ -105,32 +102,27 @@ $(function() {
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line"> </div>
-<div class="line">  func simple_F = {1, 2, 3, 4};</div>
-<div class="line">  func FT_simple_F = <a id="a0" name="a0"></a><a class="code hl_function" href="class_f_f_t.html#a87b68e8b1db45adc83d3018b3843a503">FFT::dft</a>(simple_F, <span class="keyword">false</span>);</div>
-<div class="line">  func restored_simple_F = <a class="code hl_function" href="class_f_f_t.html#a87b68e8b1db45adc83d3018b3843a503">FFT::dft</a>(FT_simple_F, <span class="keyword">true</span>);</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;c : restored_simple_F) {</div>
-<div class="line">    c /= restored_simple_F.size();</div>
-<div class="line">  }</div>
-<div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;Original: &quot;</span> &lt;&lt; func_to_string(simple_F, simple_F.size()) &lt;&lt; endl;</div>
-<div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;Restored: &quot;</span> &lt;&lt; func_to_string(restored_simple_F, restored_simple_F.size()) &lt;&lt; endl;</div>
+<div class="line">  <span class="comment">// func simple_F = {1, 2, 3, 4};</span></div>
+<div class="line">  <span class="comment">// func FT_simple_F = FFT::dft(simple_F, false);</span></div>
+<div class="line">  <span class="comment">// func restored_simple_F = FFT::dft(FT_simple_F, true);</span></div>
+<div class="line">  <span class="comment">// for (auto &amp;c : restored_simple_F) {</span></div>
+<div class="line">  <span class="comment">//   c /= restored_simple_F.size();</span></div>
+<div class="line">  <span class="comment">// }</span></div>
+<div class="line">  <span class="comment">// cout &lt;&lt; &quot;Original: &quot; &lt;&lt; func_to_string(simple_F, simple_F.size()) &lt;&lt; endl;</span></div>
+<div class="line">  <span class="comment">// cout &lt;&lt; &quot;Restored: &quot; &lt;&lt; func_to_string(restored_simple_F, restored_simple_F.size()) &lt;&lt; endl;</span></div>
 <div class="line"> </div>
-<div class="line">  func F = {1, 8, 7, 3};</div>
-<div class="line">  func G = {2, 3, 1, 0};</div>
-<div class="line">  func FG = {2, 19, 39, 35, 16, 3};</div>
+<div class="line">  vector&lt;int&gt; F = {1, 8, 7, 3};</div>
+<div class="line">  vector&lt;int&gt; G = {2, 3, 1, 0};</div>
+<div class="line">  vector&lt;int&gt; FG = {2, 19, 39, 35, 16, 3};</div>
 <div class="line"> </div>
-<div class="line">  vector&lt;double&gt; calculated_FG = <a id="a1" name="a1"></a><a class="code hl_function" href="class_f_f_t.html#a5597491a2576353b77d374202fe0f936">FFT::multiply</a>(F, G);</div>
-<div class="line">  func calculated_FG_func;</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keyword">auto</span> c : calculated_FG) {</div>
-<div class="line">    calculated_FG_func.push_back(c);</div>
-<div class="line">  }</div>
+<div class="line">  vector&lt;long long&gt; calculated_FG = <a id="a0" name="a0"></a><a class="code hl_function" href="class_f_f_t.html#ab5ba9cf9738a185b8e634e694512d0ac">FFT::multiply</a>(F, G);</div>
 <div class="line"> </div>
 <div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;F: &quot;</span> &lt;&lt; func_to_string(F, 4) &lt;&lt; endl;</div>
 <div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;G: &quot;</span> &lt;&lt; func_to_string(G, 3) &lt;&lt; endl;</div>
 <div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;Correct FG   : &quot;</span> &lt;&lt; func_to_string(FG, 6) &lt;&lt; endl;</div>
-<div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;Calculated FG: &quot;</span> &lt;&lt; func_to_string(calculated_FG_func, 6) &lt;&lt; endl;</div>
+<div class="line">  cout &lt;&lt; <span class="stringliteral">&quot;Calculated FG: &quot;</span> &lt;&lt; func_to_string(calculated_FG, 6) &lt;&lt; endl;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_f_f_t_html_a5597491a2576353b77d374202fe0f936"><div class="ttname"><a href="class_f_f_t.html#a5597491a2576353b77d374202fe0f936">FFT::multiply</a></div><div class="ttdeci">static std::vector&lt; double &gt; multiply(const std::vector&lt; T &gt; &amp;f, const std::vector&lt; T &gt; &amp;g)</div><div class="ttdoc">2つの多項式を畳み込む</div><div class="ttdef"><b>Definition:</b> fft.hpp:79</div></div>
-<div class="ttc" id="aclass_f_f_t_html_a87b68e8b1db45adc83d3018b3843a503"><div class="ttname"><a href="class_f_f_t.html#a87b68e8b1db45adc83d3018b3843a503">FFT::dft</a></div><div class="ttdeci">static func dft(const func &amp;base_func, bool is_invert)</div><div class="ttdoc">関数のDFTを求める。</div><div class="ttdef"><b>Definition:</b> fft.hpp:51</div></div>
+<div class="ttc" id="aclass_f_f_t_html_ab5ba9cf9738a185b8e634e694512d0ac"><div class="ttname"><a href="class_f_f_t.html#ab5ba9cf9738a185b8e634e694512d0ac">FFT::multiply</a></div><div class="ttdeci">static std::vector&lt; long long &gt; multiply(const std::vector&lt; T &gt; &amp;f, const std::vector&lt; T &gt; &amp;g)</div><div class="ttdoc">2つの多項式を畳み込む。2つの多項式の次数が等しい2冪の数であることが必要。</div><div class="ttdef"><b>Definition:</b> fft.hpp:77</div></div>
 <div class="ttc" id="afft_8hpp_html"><div class="ttname"><a href="fft_8hpp.html">fft.hpp</a></div><div class="ttdoc">FFTに関するコード。</div></div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
