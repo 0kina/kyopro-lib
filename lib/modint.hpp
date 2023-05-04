@@ -1,10 +1,11 @@
+#pragma once
 /**
  * @file modint.hpp
  * @brief 素数を法とするmodに関するコード。
  * @details mod Pでの演算をサポート。
  */
-#ifndef OKINA_MODINT
-#define OKINA_MODINT
+// #ifndef OKINA_MODINT
+// #define OKINA_MODINT
 
 #include <ostream>
 #include <vector>
@@ -164,4 +165,4 @@ std::ostream &operator<<(std::ostream &ost, const ModInt<mod> &m) {
   return ost;
 };
 
-#endif // OKINA_MODINT
+// #endif // OKINA_MODINT

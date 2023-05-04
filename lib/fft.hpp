@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file fft.hpp
  * @brief FFTに関するコード。
@@ -16,42 +17,52 @@
  *   「2つの関数を同じ点で評価した値の積」は等しいので式変形が可能
  *
  * ## Verification
- * https://atcoder.jp/contests/atc001/submissions/41157067
+ * https://atcoder.jp/contests/atc001/submissions/41168208
+ * https://atcoder.jp/contests/practice2/submissions/41168314
  * @example fft_example.cpp
  */
 
-#ifndef OKINA_FFT
-#define OKINA_FFT
+// #ifndef OKINA_FFT
+// #define OKINA_FFT
 
 #include <cassert>
-#include <complex>
 #include <cmath>
 #include <vector>
 
+#include "../lib/modint.hpp"
+
 class FFT {
-  using func = std::vector<std::complex<double>>;
+  static constexpr long long MOD = 998244353;
+  static constexpr int DIVIDE_LIMIT = 23;
+  static constexpr int PRIMITIVE_ROOT = 3;
+  using mint = ModInt<MOD>;
+
 public:
   /**
-   * @brief 関数のDFTを求める。
+   * @brief 多項式関数のDFTをNTTを用いて求める。
    *
-   * @param base_func 関数。
-   * @param is_invert IDFTを求める場合はtrue。
-   * @return base_funcのDFT。
+   * @param f 多項式関数。
+   * @param depth lg(fの項数)。
+   * @param root MOD 998244353での2冪乗根。
+   * @return fのDFT。
    */
-  static func dft(const func &base_func, bool is_invert) {
-    int sz = base_func.size();
-    if (sz == 1) return base_func;
-    func f0(sz / 2), f1(sz / 2);
+  static std::vector<mint> ntt(const std::vector<mint> &f,
+                               int depth,
+                               const std::vector<mint> &root) {
+    assert((int)std::pow(2, depth) == f.size());
+    int sz = f.size();
+    if (sz == 1) return f;
+    std::vector<mint> f0(sz / 2, 0), f1(sz / 2, 0);
     for (int i = 0; i < sz / 2; ++i) {
-      f0[i] = base_func[i * 2];
-      f1[i] = base_func[i * 2 + 1];
+      f0[i] = f[i * 2];
+      f1[i] = f[i * 2 + 1];
     }
-    func ft_f0 = dft(f0, is_invert); // f0のDFT
-    func ft_f1 = dft(f1, is_invert); // f1のDFT
-    std::complex<double> zeta = std::polar(1.0, 2 * std::acos(-1) / sz * (is_invert ? -1 : 1));
-    std::complex<double> pow_zeta = 1.0;
+    std::vector<mint> ft_f0 = ntt(f0, depth - 1, root); // f0のDFT
+    std::vector<mint> ft_f1 = ntt(f1, depth - 1, root); // f1のDFT
+    mint zeta = root[depth];
+    mint pow_zeta = 1.0;
 
-    func ft_f(sz); // fのDFT
+    std::vector<mint> ft_f(sz, 0); // fのDFT
     for (int i = 0; i < sz; ++i) {
       ft_f[i] = ft_f0[i % (sz / 2)] + pow_zeta * ft_f1[i % (sz / 2)];
       pow_zeta *= zeta;
@@ -60,39 +71,53 @@ public:
   }
 
   /**
-   * @brief 2つの多項式を畳み込む
+   * @brief 2つの多項式を畳み込む。2つの多項式の次数が等しい2冪の数であることが必要。
    * @param f 1つ目の多項式。
    * @param g 2つ目の多項式。
    * @return std::vector<double> 畳み込み結果の多項式。
    */
   template <typename T>
-  static std::vector<double> multiply(const std::vector<T> &f, const std::vector<T> &g) {
+  static std::vector<long long> multiply(const std::vector<T> &f, const std::vector<T> &g) {
     assert(f.size() == g.size());
     int sz = 1;
-    while (sz < f.size() + g.size()) sz *= 2;
-    func complex_f(sz, 0.0), complex_g(sz, 0.0);
+    int log_sz = 0;
+    while (sz < f.size() + g.size()) {
+      sz *= 2;
+      ++log_sz;
+    }
+    std::vector<mint> mint_f(sz, 0), mint_g(sz, 0);
     for (int i = 0; i < f.size(); ++i) {
-      complex_f[i] = f[i];
-      complex_g[i] = g[i];
+      mint_f[i] = f[i];
+      mint_g[i] = g[i];
     }
 
-    func ft_f = dft(complex_f, false);
-    func ft_g = dft(complex_g, false);
+    std::vector<mint> root(DIVIDE_LIMIT + 1, 0);
+    std::vector<mint> inv_root(DIVIDE_LIMIT + 1, 0);
 
-    func ft_fg = ft_f;
+    root[DIVIDE_LIMIT] = mint(PRIMITIVE_ROOT).pow((mint(MOD - 1) / mint(2).pow(DIVIDE_LIMIT)).get_x());
+    inv_root[DIVIDE_LIMIT] = root[DIVIDE_LIMIT].inv();
+    for (int i = DIVIDE_LIMIT - 1; i >= 0; --i) {
+      root[i] = root[i + 1] * root[i + 1];
+      inv_root[i] = inv_root[i + 1] * inv_root[i + 1];
+    }
+
+    std::vector<mint> ft_f = ntt(mint_f, log_sz, root);
+    std::vector<mint> ft_g = ntt(mint_g, log_sz, root);
+
+    std::vector<mint> ft_fg = ft_f;
     for (int i = 0; i < sz; ++i) {
       ft_fg[i] *= ft_g[i];
     }
 
-    func fg = dft(ft_fg, true);
+    std::vector<mint> fg = ntt(ft_fg, log_sz, inv_root);
 
-    std::vector<double> res(sz);
+    std::vector<long long> res(sz);
     for (int i = 0; i < sz; ++i) {
-      res[i] = fg[i].real() / sz;
+      res[i] = (fg[i] / mint(sz)).get_x();
     }
 
     return res;
   }
 }; // class FFT
 
-#endif // OKINA_FFT
+// #endif // OKINA_FFT
