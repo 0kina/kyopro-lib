@@ -14,6 +14,9 @@
  *                               &=& \sum_{i = 0}^{n - 1} g(\zeta_n^i) h(\zeta_n^i) @f}
  * * DFTの係数は「関数をある点で評価した値」であり、「関数の積をある点で評価した値」と
  *   「2つの関数を同じ点で評価した値の積」は等しいので式変形が可能
+ *
+ * ## Verification
+ * https://atcoder.jp/contests/atc001/submissions/41157067
  * @example fft_example.cpp
  */
 
