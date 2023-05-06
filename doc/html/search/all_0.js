@@ -6,5 +6,6 @@ var searchData=
   ['comp_3',['comp',['../class_s_c_c.html#a70a5d9728f67bd85454cb578335676cd',1,'SCC']]],
   ['comp_5fsize_4',['comp_size',['../class_s_c_c.html#a9573aeb7dc882e0cb223af74cfdd4ea7',1,'SCC']]],
   ['coordcomp_5',['CoordComp',['../class_coord_comp.html',1,'']]],
-  ['coordinates_5fcompression_2ehpp_6',['coordinates_compression.hpp',['../coordinates__compression_8hpp.html',1,'']]]
+  ['coordinates_5fcompression_2ehpp_6',['coordinates_compression.hpp',['../coordinates__compression_8hpp.html',1,'']]],
+  ['count_7',['count',['../class_trie.html#a85435d5fc12e2fff872cc0d6c0afdafb',1,'Trie']]]
 ];

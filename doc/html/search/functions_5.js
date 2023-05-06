@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pos_0',['pos',['../class_coord_comp.html#a0e57c62b3bcdaf2aea7939e25247f8b1',1,'CoordComp']]]
+  ['ntt_0',['ntt',['../class_f_f_t.html#a782790014fdbffc367b1613d326ecd86',1,'FFT']]]
 ];
