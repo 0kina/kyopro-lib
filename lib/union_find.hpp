@@ -1,11 +1,10 @@
-#ifndef OKINA_UNIONFIND
-#define OKINA_UNIONFIND
+#pragma once
 
 #include <numeric>
 #include <vector>
 
 class UnionFind {
- public:
+public:
   UnionFind(int n) : _par(n), _siz(n, 1) {
       std::iota(_par.begin(), _par.end(), 0);
     }
@@ -38,8 +37,6 @@ class UnionFind {
     return _siz[root(x)];
   }
 
- private:
+private:
   std::vector<int> _par, _siz;
 };
-
-#endif
