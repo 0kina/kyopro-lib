@@ -79,21 +79,124 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a04538c58a87045aacd8615d69578150b"><td class="memItemLeft" align="right" valign="top"><a id="a04538c58a87045aacd8615d69578150b" name="a04538c58a87045aacd8615d69578150b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SegmentTree</b> (int n, const DataType identity_elem, std::function&lt; DataType(DataType, DataType)&gt; fun)</td></tr>
-<tr class="separator:a04538c58a87045aacd8615d69578150b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1f282da2179724bf64b03100bf6f00e"><td class="memItemLeft" align="right" valign="top"><a id="aa1f282da2179724bf64b03100bf6f00e" name="aa1f282da2179724bf64b03100bf6f00e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (int pos, DataType new_val)</td></tr>
+<tr class="memitem:abed21b596f9303777429b1b4de56e625"><td class="memItemLeft" align="right" valign="top"><a id="abed21b596f9303777429b1b4de56e625" name="abed21b596f9303777429b1b4de56e625"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SegmentTree</b> (int n, const DataType identity_elem, const std::function&lt; DataType(DataType, DataType)&gt; fun)</td></tr>
+<tr class="separator:abed21b596f9303777429b1b4de56e625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1f282da2179724bf64b03100bf6f00e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_segment_tree.html#aa1f282da2179724bf64b03100bf6f00e">update</a> (int pos, DataType new_val)</td></tr>
+<tr class="memdesc:aa1f282da2179724bf64b03100bf6f00e"><td class="mdescLeft">&#160;</td><td class="mdescRight">1点更新をO(lg n)で行う。  <br /></td></tr>
 <tr class="separator:aa1f282da2179724bf64b03100bf6f00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54f0d9b375d6de4f892d0b5864bdb763"><td class="memItemLeft" align="right" valign="top"><a id="a54f0d9b375d6de4f892d0b5864bdb763" name="a54f0d9b375d6de4f892d0b5864bdb763"></a>
-DataType&#160;</td><td class="memItemRight" valign="bottom"><b>query</b> (int query_left, int query_right)</td></tr>
+<tr class="memitem:a54f0d9b375d6de4f892d0b5864bdb763"><td class="memItemLeft" align="right" valign="top">DataType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_segment_tree.html#a54f0d9b375d6de4f892d0b5864bdb763">query</a> (int query_left, int query_right)</td></tr>
+<tr class="memdesc:a54f0d9b375d6de4f892d0b5864bdb763"><td class="mdescLeft">&#160;</td><td class="mdescRight">半開区間の区間クエリをO(lg n)で行う。  <br /></td></tr>
 <tr class="separator:a54f0d9b375d6de4f892d0b5864bdb763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b5690a4ef417b94804dde10880292f7"><td class="memItemLeft" align="right" valign="top"><a id="a0b5690a4ef417b94804dde10880292f7" name="a0b5690a4ef417b94804dde10880292f7"></a>
-DataType&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int idx)</td></tr>
-<tr class="separator:a0b5690a4ef417b94804dde10880292f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9800bae94a7c9d9a4a08a7d23c7641dd"><td class="memItemLeft" align="right" valign="top"><a id="a9800bae94a7c9d9a4a08a7d23c7641dd" name="a9800bae94a7c9d9a4a08a7d23c7641dd"></a>
+DataType&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int idx) const</td></tr>
+<tr class="memdesc:a9800bae94a7c9d9a4a08a7d23c7641dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の値をO(1)で取得する。 <br /></td></tr>
+<tr class="separator:a9800bae94a7c9d9a4a08a7d23c7641dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename DataType&gt;<br />
+class SegmentTree&lt; DataType &gt;</div><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="segment_tree_example_8cpp-example.html#_a0">segment_tree_example.cpp</a>.</dd>
+</dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a54f0d9b375d6de4f892d0b5864bdb763" name="a54f0d9b375d6de4f892d0b5864bdb763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f0d9b375d6de4f892d0b5864bdb763">&#9670;&#160;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataType <a class="el" href="class_segment_tree.html">SegmentTree</a>&lt; DataType &gt;::query </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>query_left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>query_right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>半開区間の区間クエリをO(lg n)で行う。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">query_left</td><td>クエリの左端。計算時に含まれる。 </td></tr>
+    <tr><td class="paramname">query_right</td><td>クエリの右端。計算時に含まれない。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>区間クエリの結果。 </dd></dl>
+
+</div>
+</div>
+<a id="aa1f282da2179724bf64b03100bf6f00e" name="aa1f282da2179724bf64b03100bf6f00e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1f282da2179724bf64b03100bf6f00e">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_segment_tree.html">SegmentTree</a>&lt; DataType &gt;::update </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType&#160;</td>
+          <td class="paramname"><em>new_val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>1点更新をO(lg n)で行う。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>更新箇所。 </td></tr>
+    <tr><td class="paramname">new_val</td><td>更新値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="segment_tree_example_8cpp-example.html#a1">segment_tree_example.cpp</a>.</dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/Library/kyopro-lib/lib/segment_tree.cpp</li>
+<li>/Library/kyopro-lib/lib/<a class="el" href="segment__tree_8hpp_source.html">segment_tree.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

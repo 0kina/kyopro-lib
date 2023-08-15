@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pos_0',['pos',['../class_coord_comp.html#a0e57c62b3bcdaf2aea7939e25247f8b1',1,'CoordComp']]],
-  ['prime_5fnumber_2ehpp_1',['prime_number.hpp',['../prime__number_8hpp.html',1,'']]]
+  ['operator_5b_5d_0',['operator[]',['../class_segment_tree.html#a9800bae94a7c9d9a4a08a7d23c7641dd',1,'SegmentTree']]]
 ];
