@@ -11,11 +11,11 @@
 template <long long mod>
 class ModInt {
 public:
-  ModInt<mod>() {
+  ModInt() {
     this->x = 0;
   }
 
-  ModInt<mod>(long long x) {
+  ModInt(long long x) {
     this->x = x % mod;
     if (this->x < 0) this->x += mod;
   }
