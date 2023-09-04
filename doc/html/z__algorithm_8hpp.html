@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>競プロライブラリ: /Library/kyopro-lib/lib/string Directory Reference</title>
+<title>競プロライブラリ: /Library/kyopro-lib/lib/string/z_algorithm.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,25 +74,63 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">string Directory Reference</div></div>
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">z_algorithm.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Manacharアルゴリズムに関するコード。  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
+<p><a href="z__algorithm_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="kmp_8hpp.html">kmp.hpp</a> <a href="kmp_8hpp_source.html">[code]</a></td></tr>
-<tr class="memdesc:kmp_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">KMPアルゴリズムに関するコード。 <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="manachar_8hpp.html">manachar.hpp</a> <a href="manachar_8hpp_source.html">[code]</a></td></tr>
-<tr class="memdesc:manachar_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manacharアルゴリズムに関するコード。 <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="trie_8hpp.html">trie.hpp</a> <a href="trie_8hpp_source.html">[code]</a></td></tr>
-<tr class="memdesc:trie_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">trie木に関するコード。 <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z__algorithm_8hpp.html">z_algorithm.hpp</a> <a href="z__algorithm_8hpp_source.html">[code]</a></td></tr>
-<tr class="memdesc:z__algorithm_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manacharアルゴリズムに関するコード。 <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab68daee84710b350f051fbe8c0b9047c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="z__algorithm_8hpp.html#ab68daee84710b350f051fbe8c0b9047c">z_algorithm</a> (const std::string &amp;S)</td></tr>
+<tr class="memdesc:ab68daee84710b350f051fbe8c0b9047c"><td class="mdescLeft">&#160;</td><td class="mdescRight">文字列SとS[i:]の最長共通接頭辞の長さをすべてのiに対して合計O(|S|)で求める。  <br /></td></tr>
+<tr class="separator:ab68daee84710b350f051fbe8c0b9047c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Manacharアルゴリズムに関するコード。 </p>
+<ul>
+<li>文字列SとS[i:]の最長共通接頭辞の長さをすべてのiに対して合計O(|S|)で求める。</li>
+<li>Library Checker<ul>
+<li><a href="https://judge.yosupo.jp/submission/159294">https://judge.yosupo.jp/submission/159294</a> </li>
+</ul>
+</li>
+</ul>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab68daee84710b350f051fbe8c0b9047c" name="ab68daee84710b350f051fbe8c0b9047c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab68daee84710b350f051fbe8c0b9047c">&#9670;&#160;</a></span>z_algorithm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; int &gt; z_algorithm </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>S</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>文字列SとS[i:]の最長共通接頭辞の長さをすべてのiに対して合計O(|S|)で求める。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">S</td><td>対象の文字列。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>文字列SとS[i:]の最長共通接頭辞の長さを格納したvector。 </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

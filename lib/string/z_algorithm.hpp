@@ -1,6 +1,6 @@
 #pragma once
 /**
- * @file manachar.hpp
+ * @file z_algorithm.hpp
  * @brief Manacharアルゴリズムに関するコード。
  * @details
  * * 文字列SとS[i:]の最長共通接頭辞の長さをすべてのiに対して合計O(|S|)で求める。
