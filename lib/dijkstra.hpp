@@ -54,6 +54,8 @@ public:
     return res;
   }
 
+  int prev(int v) const { return _prev[v]; }
+
 private:
   const CostType _INF = std::numeric_limits<CostType>::max();
   int _src;
