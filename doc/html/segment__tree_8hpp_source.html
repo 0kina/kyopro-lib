@@ -105,7 +105,7 @@ $(function() {
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_segment_tree.html#a54f0d9b375d6de4f892d0b5864bdb763">   51</a></span>  DataType <a class="code hl_function" href="class_segment_tree.html#a54f0d9b375d6de4f892d0b5864bdb763">query</a>(<span class="keywordtype">int</span> query_left, <span class="keywordtype">int</span> query_right) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> query_main(query_left, query_right, 0, 0, _n_leaves);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> _query_inner(query_left, query_right, 0, 0, _n_leaves);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  }</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="class_segment_tree.html#a9800bae94a7c9d9a4a08a7d23c7641dd">   58</a></span>  DataType <a class="code hl_function" href="class_segment_tree.html#a9800bae94a7c9d9a4a08a7d23c7641dd">operator[]</a>(<span class="keywordtype">int</span> idx)<span class="keyword"> const </span>{</div>
@@ -118,22 +118,96 @@ $(function() {
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  std::function&lt;DataType(DataType, DataType)&gt; _fun;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  std::vector&lt;DataType&gt; _val;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  DataType query_main(<span class="keywordtype">int</span> query_left, <span class="keywordtype">int</span> query_right, <span class="keywordtype">int</span> node, <span class="keywordtype">int</span> seg_left, <span class="keywordtype">int</span> seg_right) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (seg_right &lt;= query_left || query_right &lt;= seg_left) <span class="keywordflow">return</span> _identity_elem;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (query_left &lt;= seg_left &amp;&amp; seg_right &lt;= query_right) <span class="keywordflow">return</span> _val[node];</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>      DataType c1 = query_main(query_left, query_right, node * 2 + 1, seg_left, (seg_left + seg_right) / 2);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>      DataType c2 = query_main(query_left, query_right, node * 2 + 2, (seg_left + seg_right) / 2, seg_right);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>      <span class="keywordflow">return</span> _fun(c1, c2);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="class_semigroup_segment_tree.html#a82a3afb597f17d2edfae5b46c4722095">   68</a></span>  DataType _query_inner(<span class="keywordtype">int</span> query_left, <span class="keywordtype">int</span> query_right, <span class="keywordtype">int</span> node, <span class="keywordtype">int</span> seg_left, <span class="keywordtype">int</span> seg_right) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// クエリがノードの担当範囲外</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (seg_right &lt;= query_left || query_right &lt;= seg_left) <span class="keywordflow">return</span> _identity_elem;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// ノードの担当範囲がクエリに完全に収まる</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (query_left &lt;= seg_left &amp;&amp; seg_right &lt;= query_right) <span class="keywordflow">return</span> _val[node];</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">// ノードの担当範囲がクエリと部分的に重なる</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>      DataType c1 = _query_inner(</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        query_left, query_right,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        node * 2 + 1, seg_left, (seg_left + seg_right) / 2</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      );</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      DataType c2 = _query_inner(</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        query_left, query_right,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        node * 2 + 2, (seg_left + seg_right) / 2, seg_right</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      );</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      <span class="keywordflow">return</span> _fun(c1, c2);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}; <span class="comment">// class SegmentTree</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> DataType&gt;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="class_semigroup_segment_tree.html">   94</a></span><span class="keyword">class </span><a class="code hl_class" href="class_semigroup_segment_tree.html">SemigroupSegmentTree</a> {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  <a class="code hl_class" href="class_semigroup_segment_tree.html">SemigroupSegmentTree&lt;DataType&gt;</a>(</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">int</span> n,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">const</span> DataType identity_elem,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> std::function&lt;DataType(DataType, DataType)&gt; fun</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  ) : _identity_elem(identity_elem), _fun(fun) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    _n_leaves = 1;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">while</span> (_n_leaves &lt; n) _n_leaves *= 2;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    _val = std::vector&lt;DataType&gt;(_n_leaves * 2 - 1, identity_elem);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="class_semigroup_segment_tree.html#ab4d3430c6de936620faa593f3c33ca38">  117</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="class_semigroup_segment_tree.html#ab4d3430c6de936620faa593f3c33ca38">update</a>(<span class="keywordtype">int</span> pos, DataType new_val) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    pos += _n_leaves - 1;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    _val[pos] = new_val;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">while</span> (pos &gt; 0) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      pos = (pos - 1) / 2;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      _val[pos] = _fun(_val[2 * pos + 1], _val[2 * pos + 2]);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="class_semigroup_segment_tree.html#a4a34bbb574d8f117373c6375008ea58f">  133</a></span>  DataType <a class="code hl_function" href="class_semigroup_segment_tree.html#a4a34bbb574d8f117373c6375008ea58f">query</a>(<span class="keywordtype">int</span> query_left, <span class="keywordtype">int</span> query_right) {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">return</span> _query_inner(query_left, query_right, 0, 0, _n_leaves);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>  }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="class_semigroup_segment_tree.html#a6fe8c66684f223be4eb84a2a39925cc4">  140</a></span>  DataType <a class="code hl_function" href="class_semigroup_segment_tree.html#a6fe8c66684f223be4eb84a2a39925cc4">operator[]</a>(<span class="keywordtype">int</span> idx)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> _val[idx + _n_leaves - 1];</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  <span class="keywordtype">int</span> _n_leaves;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  DataType _identity_elem;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  std::function&lt;DataType(DataType, DataType)&gt; _fun;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>  std::vector&lt;DataType&gt; _val;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  DataType _query_inner(<span class="keywordtype">int</span> query_left, <span class="keywordtype">int</span> query_right, <span class="keywordtype">int</span> node, <span class="keywordtype">int</span> seg_left, <span class="keywordtype">int</span> seg_right) {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">// クエリがノードの担当範囲外</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">if</span> (seg_right &lt;= query_left || query_right &lt;= seg_left) <span class="keywordflow">return</span> _identity_elem;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="comment">// ノードの担当範囲がクエリに完全に収まる</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">if</span> (query_left &lt;= seg_left &amp;&amp; seg_right &lt;= query_right) <span class="keywordflow">return</span> _val[node];</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment">// ノードの担当範囲がクエリと部分的に重なる</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>      DataType c1 = _query_inner(</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        query_left, query_right,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        node * 2 + 1, seg_left, (seg_left + seg_right) / 2</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>      );</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>      DataType c2 = _query_inner(</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        query_left, query_right,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        node * 2 + 2, (seg_left + seg_right) / 2, seg_right</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>      );</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>      <span class="keywordflow">if</span> (c1 == _identity_elem) <span class="keywordflow">return</span> c2;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>      <span class="keywordflow">if</span> (c2 == _identity_elem) <span class="keywordflow">return</span> c1;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>      <span class="keywordflow">return</span> _fun(c1, c2);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}; <span class="comment">// class SemigroupSegmentTree</span></div>
 <div class="ttc" id="aclass_segment_tree_html"><div class="ttname"><a href="class_segment_tree.html">SegmentTree</a></div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:16</div></div>
 <div class="ttc" id="aclass_segment_tree_html_a54f0d9b375d6de4f892d0b5864bdb763"><div class="ttname"><a href="class_segment_tree.html#a54f0d9b375d6de4f892d0b5864bdb763">SegmentTree::query</a></div><div class="ttdeci">DataType query(int query_left, int query_right)</div><div class="ttdoc">半開区間の区間クエリをO(lg n)で行う。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:51</div></div>
 <div class="ttc" id="aclass_segment_tree_html_a9800bae94a7c9d9a4a08a7d23c7641dd"><div class="ttname"><a href="class_segment_tree.html#a9800bae94a7c9d9a4a08a7d23c7641dd">SegmentTree::operator[]</a></div><div class="ttdeci">DataType operator[](int idx) const</div><div class="ttdoc">現在の値をO(1)で取得する。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:58</div></div>
 <div class="ttc" id="aclass_segment_tree_html_aa1f282da2179724bf64b03100bf6f00e"><div class="ttname"><a href="class_segment_tree.html#aa1f282da2179724bf64b03100bf6f00e">SegmentTree::update</a></div><div class="ttdeci">void update(int pos, DataType new_val)</div><div class="ttdoc">1点更新をO(lg n)で行う。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:35</div></div>
+<div class="ttc" id="aclass_semigroup_segment_tree_html"><div class="ttname"><a href="class_semigroup_segment_tree.html">SemigroupSegmentTree</a></div><div class="ttdoc">半群をセグメント木に載せるためのクラス。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:94</div></div>
+<div class="ttc" id="aclass_semigroup_segment_tree_html_a4a34bbb574d8f117373c6375008ea58f"><div class="ttname"><a href="class_semigroup_segment_tree.html#a4a34bbb574d8f117373c6375008ea58f">SemigroupSegmentTree::query</a></div><div class="ttdeci">DataType query(int query_left, int query_right)</div><div class="ttdoc">半開区間の区間クエリをO(lg n)で行う。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:133</div></div>
+<div class="ttc" id="aclass_semigroup_segment_tree_html_a6fe8c66684f223be4eb84a2a39925cc4"><div class="ttname"><a href="class_semigroup_segment_tree.html#a6fe8c66684f223be4eb84a2a39925cc4">SemigroupSegmentTree::operator[]</a></div><div class="ttdeci">DataType operator[](int idx) const</div><div class="ttdoc">現在の値をO(1)で取得する。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:140</div></div>
+<div class="ttc" id="aclass_semigroup_segment_tree_html_ab4d3430c6de936620faa593f3c33ca38"><div class="ttname"><a href="class_semigroup_segment_tree.html#ab4d3430c6de936620faa593f3c33ca38">SemigroupSegmentTree::update</a></div><div class="ttdeci">void update(int pos, DataType new_val)</div><div class="ttdoc">1点更新をO(lg n)で行う。</div><div class="ttdef"><b>Definition:</b> segment_tree.hpp:117</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
