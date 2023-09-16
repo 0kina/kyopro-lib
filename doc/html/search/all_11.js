@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['z_5falgorithm_0',['z_algorithm',['../z__algorithm_8hpp.html#ab68daee84710b350f051fbe8c0b9047c',1,'z_algorithm.hpp']]],
-  ['z_5falgorithm_2ehpp_1',['z_algorithm.hpp',['../z__algorithm_8hpp.html',1,'']]]
+  ['weighted_5funion_5ffind_2ehpp_0',['weighted_union_find.hpp',['../weighted__union__find_8hpp.html',1,'']]],
+  ['weightedunionfind_1',['WeightedUnionFind',['../class_weighted_union_find.html',1,'']]]
 ];

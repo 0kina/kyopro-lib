@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enum_5fprime_5fnums_0',['enum_prime_nums',['../prime__number_8hpp.html#aecbabd8cf8df76f374177bbdd394ed34',1,'prime_number.hpp']]]
+  ['diff_0',['diff',['../class_weighted_union_find.html#a558097149a90feb77253bb41112a53d7',1,'WeightedUnionFind']]]
 ];

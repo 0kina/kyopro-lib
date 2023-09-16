@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unionfind_0',['UnionFind',['../class_union_find.html',1,'']]]
+  ['weightedunionfind_0',['WeightedUnionFind',['../class_weighted_union_find.html',1,'']]]
 ];
