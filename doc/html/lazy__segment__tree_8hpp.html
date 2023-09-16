@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>競プロライブラリ: FenwickTree&lt; T &gt; Class Template Reference</title>
+<title>競プロライブラリ: /Users/takeshi/Desktop/desktop/kyopro-lib/lib/lazy_segment_tree.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,34 +68,44 @@ $(function() {
 </div>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_fenwick_tree-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FenwickTree&lt; T &gt; Class Template Reference</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">lazy_segment_tree.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>遅延セグメント木に関するコード。  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cassert&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
+<p><a href="lazy__segment__tree_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a083a0004614f7db1c418af651c9a1057"><td class="memItemLeft" align="right" valign="top"><a id="a083a0004614f7db1c418af651c9a1057" name="a083a0004614f7db1c418af651c9a1057"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FenwickTree</b> (int n)</td></tr>
-<tr class="separator:a083a0004614f7db1c418af651c9a1057"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9246cff751717c71ee14a3a9869b5559"><td class="memItemLeft" align="right" valign="top"><a id="a9246cff751717c71ee14a3a9869b5559" name="a9246cff751717c71ee14a3a9869b5559"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (int pos, T x)</td></tr>
-<tr class="separator:a9246cff751717c71ee14a3a9869b5559"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08002f67f942f364455c5a894dd4669a"><td class="memItemLeft" align="right" valign="top"><a id="a08002f67f942f364455c5a894dd4669a" name="a08002f67f942f364455c5a894dd4669a"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>sum</b> (int pos)</td></tr>
-<tr class="separator:a08002f67f942f364455c5a894dd4669a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61b3f26e46601c405dff2a0e5b86cb04"><td class="memItemLeft" align="right" valign="top"><a id="a61b3f26e46601c405dff2a0e5b86cb04" name="a61b3f26e46601c405dff2a0e5b86cb04"></a>
-std::pair&lt; int, T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>lower_bound</b> (T x)</td></tr>
-<tr class="separator:a61b3f26e46601c405dff2a0e5b86cb04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>/Users/takeshi/Desktop/desktop/kyopro-lib/lib/fenwick_tree.cpp</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>遅延セグメント木に関するコード。 </p>
+<p>モノイドの演算に関する処理を以下の時間で行う。</p><ul>
+<li>区間計算クエリ：O(lg N)</li>
+<li>区間更新クエリ：O(lg N)</li>
+<li>Validation<ul>
+<li>区間加算、1点取得: <a href="https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/DSL_2_E/judge/8289629/C++17">https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/DSL_2_E/judge/8289629/C++17</a></li>
+<li>区間加算、区間min: <a href="https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/DSL_2_H/judge/8289658/C++17">https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/DSL_2_H/judge/8289658/C++17</a></li>
+<li>区間更新、区間min: <a href="https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/DSL_2_F/judge/8289721/C++17">https://onlinejudge.u-aizu.ac.jp/status/users/okina25/submissions/1/DSL_2_F/judge/8289721/C++17</a> </li>
 </ul>
-</div><!-- contents -->
+</li>
+</ul>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

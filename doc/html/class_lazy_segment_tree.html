@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>競プロライブラリ: LazySegmentTree&lt; T, U &gt; Class Template Reference</title>
+<title>競プロライブラリ: LazySegmentTree&lt; DataType, OperatorType &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,27 +73,181 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_lazy_segment_tree-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">LazySegmentTree&lt; T, U &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">LazySegmentTree&lt; DataType, OperatorType &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a958dee11c651959d6526a55d6e7f6b89"><td class="memItemLeft" align="right" valign="top"><a id="a958dee11c651959d6526a55d6e7f6b89" name="a958dee11c651959d6526a55d6e7f6b89"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>LazySegmentTree</b> (int n, const T identity_elem_T, U identity_elem_U, std::function&lt; T(T, T)&gt; fun_T, std::function&lt; T(T, U)&gt; fun_A, std::function&lt; U(U, U)&gt; fun_M)</td></tr>
-<tr class="separator:a958dee11c651959d6526a55d6e7f6b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addcda44ea53c261b2175f40d98c8b765"><td class="memItemLeft" align="right" valign="top"><a id="addcda44ea53c261b2175f40d98c8b765" name="addcda44ea53c261b2175f40d98c8b765"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (int l, int r, T new_val)</td></tr>
-<tr class="separator:addcda44ea53c261b2175f40d98c8b765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23b79cc41ee1af6c612b6aefc6853b59"><td class="memItemLeft" align="right" valign="top"><a id="a23b79cc41ee1af6c612b6aefc6853b59" name="a23b79cc41ee1af6c612b6aefc6853b59"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>query</b> (int query_left, int query_right)</td></tr>
-<tr class="separator:a23b79cc41ee1af6c612b6aefc6853b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2756ef7183c05ad3fd69072a168d4696"><td class="memItemLeft" align="right" valign="top"><a id="a2756ef7183c05ad3fd69072a168d4696" name="a2756ef7183c05ad3fd69072a168d4696"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (int pos)</td></tr>
-<tr class="separator:a2756ef7183c05ad3fd69072a168d4696"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7157816ab40be6c09f14a871df7e45ca"><td class="memItemLeft" align="right" valign="top"><a id="a7157816ab40be6c09f14a871df7e45ca" name="a7157816ab40be6c09f14a871df7e45ca"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>LazySegmentTree</b> (int n, const DataType identity_data, const OperatorType identity_operator, const std::function&lt; DataType(DataType, DataType)&gt; &amp;fun_data, const std::function&lt; DataType(DataType, OperatorType)&gt; &amp;act, const std::function&lt; OperatorType(OperatorType, OperatorType)&gt; &amp;fun_operator)</td></tr>
+<tr class="separator:a7157816ab40be6c09f14a871df7e45ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a228066896660eebe7e89b7f8d5986199"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lazy_segment_tree.html#a228066896660eebe7e89b7f8d5986199">set</a> (int pos, DataType val)</td></tr>
+<tr class="memdesc:a228066896660eebe7e89b7f8d5986199"><td class="mdescLeft">&#160;</td><td class="mdescRight">配列の初期値を設定する。<code><a class="el" href="class_lazy_segment_tree.html#a228066896660eebe7e89b7f8d5986199" title="配列の初期値を設定する。set()を呼び終わった後にbuilt()を呼ぶ。">set()</a></code>を呼び終わった後に<code>built()</code>を呼ぶ。  <br /></td></tr>
+<tr class="separator:a228066896660eebe7e89b7f8d5986199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9e911bad309158c99e2cd29aed82590"><td class="memItemLeft" align="right" valign="top"><a id="ae9e911bad309158c99e2cd29aed82590" name="ae9e911bad309158c99e2cd29aed82590"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>build</b> ()</td></tr>
+<tr class="memdesc:ae9e911bad309158c99e2cd29aed82590"><td class="mdescLeft">&#160;</td><td class="mdescRight">配列の初期値が設定済みのセグメント木をO(N)で初期化する。 <br /></td></tr>
+<tr class="separator:ae9e911bad309158c99e2cd29aed82590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae99959a5954c990d14cd2bfcae25007"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lazy_segment_tree.html#aae99959a5954c990d14cd2bfcae25007">update</a> (int l, int r, OperatorType new_val)</td></tr>
+<tr class="memdesc:aae99959a5954c990d14cd2bfcae25007"><td class="mdescLeft">&#160;</td><td class="mdescRight">半開区間[l, r)の区間更新をO(lg N)で行う。  <br /></td></tr>
+<tr class="separator:aae99959a5954c990d14cd2bfcae25007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6518733728dd679ff5c46395f77e1fda"><td class="memItemLeft" align="right" valign="top">DataType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lazy_segment_tree.html#a6518733728dd679ff5c46395f77e1fda">query</a> (int query_left, int query_right)</td></tr>
+<tr class="memdesc:a6518733728dd679ff5c46395f77e1fda"><td class="mdescLeft">&#160;</td><td class="mdescRight">半開区間[l, r)の区間クエリにO(lg N)で応答する。  <br /></td></tr>
+<tr class="separator:a6518733728dd679ff5c46395f77e1fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6518733728dd679ff5c46395f77e1fda" name="a6518733728dd679ff5c46395f77e1fda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6518733728dd679ff5c46395f77e1fda">&#9670;&#160;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType , typename OperatorType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataType <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree</a>&lt; DataType, OperatorType &gt;::query </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>query_left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>query_right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>半開区間[l, r)の区間クエリにO(lg N)で応答する。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>区間の左端。 </td></tr>
+    <tr><td class="paramname">r</td><td>区間の右端。 </td></tr>
+    <tr><td class="paramname">new_val</td><td>作用素。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a228066896660eebe7e89b7f8d5986199" name="a228066896660eebe7e89b7f8d5986199"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a228066896660eebe7e89b7f8d5986199">&#9670;&#160;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType , typename OperatorType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree</a>&lt; DataType, OperatorType &gt;::set </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>配列の初期値を設定する。<code><a class="el" href="class_lazy_segment_tree.html#a228066896660eebe7e89b7f8d5986199" title="配列の初期値を設定する。set()を呼び終わった後にbuilt()を呼ぶ。">set()</a></code>を呼び終わった後に<code>built()</code>を呼ぶ。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>配列中の位置。 </td></tr>
+    <tr><td class="paramname">val</td><td>配列の値。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aae99959a5954c990d14cd2bfcae25007" name="aae99959a5954c990d14cd2bfcae25007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae99959a5954c990d14cd2bfcae25007">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType , typename OperatorType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree</a>&lt; DataType, OperatorType &gt;::update </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OperatorType&#160;</td>
+          <td class="paramname"><em>new_val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>半開区間[l, r)の区間更新をO(lg N)で行う。 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>区間の左端。 </td></tr>
+    <tr><td class="paramname">r</td><td>区間の右端。 </td></tr>
+    <tr><td class="paramname">new_val</td><td>作用素。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/Library/kyopro-lib/lib/lazy_segment_tree.cpp</li>
+<li>/Users/takeshi/Desktop/desktop/kyopro-lib/lib/<a class="el" href="lazy__segment__tree_8hpp_source.html">lazy_segment_tree.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

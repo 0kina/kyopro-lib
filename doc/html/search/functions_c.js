@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_5falgorithm_0',['z_algorithm',['../z__algorithm_8hpp.html#ab68daee84710b350f051fbe8c0b9047c',1,'z_algorithm.hpp']]]
+  ['update_0',['update',['../class_lazy_segment_tree.html#aae99959a5954c990d14cd2bfcae25007',1,'LazySegmentTree::update()'],['../class_segment_tree.html#aa1f282da2179724bf64b03100bf6f00e',1,'SegmentTree::update()'],['../class_semigroup_segment_tree.html#ab4d3430c6de936620faa593f3c33ca38',1,'SemigroupSegmentTree::update()']]]
 ];

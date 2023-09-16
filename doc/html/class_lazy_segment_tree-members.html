@@ -70,16 +70,17 @@ $(function() {
 
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">LazySegmentTree&lt; T, U &gt; Member List</div></div>
+  <div class="headertitle"><div class="title">LazySegmentTree&lt; DataType, OperatorType &gt; Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>LazySegmentTree</b>(int n, const T identity_elem_T, U identity_elem_U, std::function&lt; T(T, T)&gt; fun_T, std::function&lt; T(T, U)&gt; fun_A, std::function&lt; U(U, U)&gt; fun_M) (defined in <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a>)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>operator[]</b>(int pos) (defined in <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a>)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>query</b>(int query_left, int query_right) (defined in <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a>)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>update</b>(int l, int r, T new_val) (defined in <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a>)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; T, U &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lazy_segment_tree.html#ae9e911bad309158c99e2cd29aed82590">build</a>()</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>LazySegmentTree</b>(int n, const DataType identity_data, const OperatorType identity_operator, const std::function&lt; DataType(DataType, DataType)&gt; &amp;fun_data, const std::function&lt; DataType(DataType, OperatorType)&gt; &amp;act, const std::function&lt; OperatorType(OperatorType, OperatorType)&gt; &amp;fun_operator) (defined in <a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a>)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lazy_segment_tree.html#a6518733728dd679ff5c46395f77e1fda">query</a>(int query_left, int query_right)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="class_lazy_segment_tree.html#a228066896660eebe7e89b7f8d5986199">set</a>(int pos, DataType val)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lazy_segment_tree.html#aae99959a5954c990d14cd2bfcae25007">update</a>(int l, int r, OperatorType new_val)</td><td class="entry"><a class="el" href="class_lazy_segment_tree.html">LazySegmentTree&lt; DataType, OperatorType &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
