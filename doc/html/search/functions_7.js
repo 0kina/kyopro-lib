@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ntt_0',['ntt',['../class_f_f_t.html#a782790014fdbffc367b1613d326ecd86',1,'FFT']]]
+  ['lcp_5flength_0',['lcp_length',['../class_trie.html#ac2c65774b200c284d9071b994e8ecda3',1,'Trie']]]
 ];

@@ -20,3 +20,4 @@
                               &=& \sum_{i = 0}^{n - 1} g(\zeta_n^i) h(\zeta_n^i) \end{eqnarray*}
 \_form#13=153x81:\begin{eqnarray*} \widehat{g * h}(t) &=& \sum_{i = 0}^{n - 1} (g * h)(\zeta_n^i) \\
                               &=& \sum_{i = 0}^{n - 1} g(\zeta_n^i) h(\zeta_n^i) \end{eqnarray*}
+\_form#14=10x10:$U$

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>競プロライブラリ: FlowGraph Class Reference</title>
+<title>競プロライブラリ: FordFulkerson&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,29 +71,29 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_flow_graph-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FlowGraph Class Reference</div></div>
+<a href="class_ford_fulkerson-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">FordFulkerson&lt; T &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aea69c9b11e6820932a7582f4b70ed92e"><td class="memItemLeft" align="right" valign="top"><a id="aea69c9b11e6820932a7582f4b70ed92e" name="aea69c9b11e6820932a7582f4b70ed92e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FlowGraph</b> (int n)</td></tr>
-<tr class="separator:aea69c9b11e6820932a7582f4b70ed92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dffe9e1529994aa903781de7f5c4ee9"><td class="memItemLeft" align="right" valign="top"><a id="a6dffe9e1529994aa903781de7f5c4ee9" name="a6dffe9e1529994aa903781de7f5c4ee9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> ()</td></tr>
-<tr class="separator:a6dffe9e1529994aa903781de7f5c4ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f3f107263a0ae0466122f41e8641d29"><td class="memItemLeft" align="right" valign="top"><a id="a0f3f107263a0ae0466122f41e8641d29" name="a0f3f107263a0ae0466122f41e8641d29"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_directed_edge</b> (int from, int to, long long cap)</td></tr>
-<tr class="separator:a0f3f107263a0ae0466122f41e8641d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ed6a5bb941d778c9fd6a77ebbc65f83"><td class="memItemLeft" align="right" valign="top"><a id="a6ed6a5bb941d778c9fd6a77ebbc65f83" name="a6ed6a5bb941d778c9fd6a77ebbc65f83"></a>
-long long&#160;</td><td class="memItemRight" valign="bottom"><b>max_flow</b> (int s, int t)</td></tr>
-<tr class="separator:a6ed6a5bb941d778c9fd6a77ebbc65f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db05c3a3e80e2c39a40681b18ae8b57"><td class="memItemLeft" align="right" valign="top"><a id="a5db05c3a3e80e2c39a40681b18ae8b57" name="a5db05c3a3e80e2c39a40681b18ae8b57"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FordFulkerson</b> (const std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; &amp;g, const int source, const int target)</td></tr>
+<tr class="memdesc:a5db05c3a3e80e2c39a40681b18ae8b57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ford Fulkersonクラスのコンストラクタ．同時にUを容量の最大値としてO(MU)で最大フローを求める． <br /></td></tr>
+<tr class="separator:a5db05c3a3e80e2c39a40681b18ae8b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3179dcbb2569f73057258f741145e21b"><td class="memItemLeft" align="right" valign="top"><a id="a3179dcbb2569f73057258f741145e21b" name="a3179dcbb2569f73057258f741145e21b"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_flow_value</b> () const</td></tr>
+<tr class="separator:a3179dcbb2569f73057258f741145e21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f58d3b113dd98dc858236a7441ba119"><td class="memItemLeft" align="right" valign="top"><a id="a8f58d3b113dd98dc858236a7441ba119" name="a8f58d3b113dd98dc858236a7441ba119"></a>
+std::vector&lt; std::vector&lt; int, T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow</b> () const</td></tr>
+<tr class="memdesc:a8f58d3b113dd98dc858236a7441ba119"><td class="mdescLeft">&#160;</td><td class="mdescRight">O(M)でフローを求める． <br /></td></tr>
+<tr class="separator:a8f58d3b113dd98dc858236a7441ba119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/Users/takeshi/Desktop/desktop/kyopro-lib/lib/<a class="el" href="max__flow_8cpp.html">max_flow.cpp</a></li>
+<li>/Users/takeshi/Desktop/desktop/kyopro-lib/lib/<a class="el" href="max__flow_8hpp_source.html">max_flow.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
