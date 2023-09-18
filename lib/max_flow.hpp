@@ -16,7 +16,7 @@ template <typename T>
 class FordFulkerson {
 public:
   /**
-   * @brief Ford Fulkersonクラスのコンストラクタ．同時にUを容量の最大値としてO(MU)で最大フローを求める．
+   * @brief FordFulkersonクラスのコンストラクタ．同時にUを容量の最大値としてO(MU)で最大フローを求める．
    */
   FordFulkerson(
     const std::vector<std::vector<std::pair<int, T>>> &g,
