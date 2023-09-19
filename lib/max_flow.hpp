@@ -49,7 +49,7 @@ public:
   /**
    * @brief O(M)でフローを求める．
    */
-  std::vector<std::vector<int, T>> get_flow() const {
+  std::vector<std::vector<std::pair<int, T>>> get_flow() const {
     std::vector<std::vector<int, T>> flow(n_);
     for (int i = 0; i < n_; ++i) {
       flow[i].reserve(residual_g_[i].size() / 2);
