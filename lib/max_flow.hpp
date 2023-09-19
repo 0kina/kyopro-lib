@@ -52,11 +52,10 @@ public:
   std::vector<std::vector<int, T>> get_flow() const {
     std::vector<std::vector<int, T>> flow(n_);
     for (int i = 0; i < n_; ++i) {
-      assert(residual_g_[i].size() % 2 == 0);
       flow[i].reserve(residual_g_[i].size() / 2);
       for (Edge edge : residual_g_[i]) {
         if (edge.id_in_all_edge % 2 == 1) {
-          flow[i].emplace_back(edge.from, edge.cap);
+          flow[edge.to].emplace_back(edge.from, edge.cap);
         }
       }
     }
