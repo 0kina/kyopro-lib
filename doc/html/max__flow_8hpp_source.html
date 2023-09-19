@@ -77,112 +77,286 @@ $(function() {
   <div class="headertitle"><div class="title">max_flow.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_ford_fulkerson.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="class_ford_fulkerson.html">FordFulkerson</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_ford_fulkerson.html#a5db05c3a3e80e2c39a40681b18ae8b57">   21</a></span>  <a class="code hl_function" href="class_ford_fulkerson.html#a5db05c3a3e80e2c39a40681b18ae8b57">FordFulkerson</a>(</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> std::vector&lt;std::vector&lt;std::pair&lt;int, T&gt;&gt;&gt; &amp;g,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> source, <span class="keyword">const</span> <span class="keywordtype">int</span> target</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  ) : n_(g.size()), source_(source), target_(target), inf_(0) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    residual_g_.reserve(g.size());</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">int</span> edge_id = 0;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; g.size(); ++i) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; g[i].size(); ++j) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">auto</span> [to, cap] = g[i][j];</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        inf_ = max(inf_, cap);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="comment">// Edge: from, to, cap, id_in_all_edge, id_in_adj</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        Edge e = {i, to, cap, edge_id, int(residual_g_[i].size())};</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        Edge rev_e = {to, i, 0, edge_id + 1, int(residual_g_[to].size())};</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        residual_g_[i].push_back(e);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        residual_g_[to].push_back(rev_e);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        edges_.push_back(std::move(e));</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        edges_.push_back(std::move(rev_e));</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        edge_id += 2;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>      }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    inf_ += 10;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    solve_();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  T get_max_flow_value()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> max_flow_value_; }</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="class_ford_fulkerson.html#a8f58d3b113dd98dc858236a7441ba119">   50</a></span>  std::vector&lt;std::vector&lt;int, T&gt;&gt; <a class="code hl_function" href="class_ford_fulkerson.html#a8f58d3b113dd98dc858236a7441ba119">get_flow</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::vector&lt;std::vector&lt;int, T&gt;&gt; flow(n_);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_; ++i) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>      assert(residual_g_[i].size() % 2 == 0);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      flow[i].reserve(residual_g_[i].size() / 2);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>      <span class="keywordflow">for</span> (Edge edge : residual_g_[i]) {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">if</span> (edge.id_in_all_edge % 2 == 0) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>          flow[i].emplace_back(edge.to, edge.cap);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> flow;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keyword">struct </span>Edge {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">int</span> from, to;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    T cap;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">int</span> id_in_all_edge, id_in_adj;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  };</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordtype">bool</span> find_augment_path_(</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    std::vector&lt;int&gt; &amp;path, std::vector&lt;Edge&gt; &amp;path_edges, std::vector&lt;bool&gt; &amp;seen</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  )<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> std::vector&lt;Edge&gt; &amp;adj = residual_g_[path.back()];</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">for</span> (Edge edge : adj) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>      <span class="keywordflow">if</span> (seen[edge.to] || edge.cap == 0) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>      seen[edge.to] = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>      path.push_back(edge.to);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      path_edges.push_back(edge);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      <span class="keywordflow">if</span> (edge.to == target_) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>      } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">if</span> (find_augment_path_(path, path_edges, seen)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">else</span> path.pop_back(), path_edges.pop_back();</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keywordtype">void</span> solve_() {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    T max_flow_value = 0;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>      std::vector&lt;int&gt; path = {source_};</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>      std::vector&lt;Edge&gt; path_edges;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>      std::vector&lt;bool&gt; seen(n_, <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>      seen[source_] = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>      <span class="keywordflow">if</span> (find_augment_path_(path, path_edges, seen)) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        T augment_amount = inf_;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">for</span> (Edge e : path_edges) augment_amount = min(augment_amount, e.cap);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        max_flow_value += augment_amount;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> [from, to, cap, id_in_all_edge, id_in_adj] : path_edges) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>          <span class="keywordflow">if</span> (id_in_all_edge % 2 == 0) {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            residual_g_[from][id_in_adj].cap -= augment_amount;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            residual_g_[to][edges_[id_in_all_edge + 1].id_in_adj].cap += augment_amount;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>          } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            residual_g_[from][id_in_adj].cap -= augment_amount;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            residual_g_[to][edges_[id_in_all_edge - 1].id_in_adj].cap += augment_amount;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>          }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      } <span class="keywordflow">else</span> <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    max_flow_value_ = max_flow_value;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  std::vector&lt;std::vector&lt;Edge&gt;&gt; residual_g_;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  std::vector&lt;Edge&gt; edges_;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> n_, source_, target_;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  T inf_, max_flow_value_;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}; <span class="comment">// class FordFulkerson</span></div>
-<div class="ttc" id="aclass_ford_fulkerson_html"><div class="ttname"><a href="class_ford_fulkerson.html">FordFulkerson</a></div><div class="ttdef"><b>Definition:</b> max_flow.hpp:16</div></div>
-<div class="ttc" id="aclass_ford_fulkerson_html_a5db05c3a3e80e2c39a40681b18ae8b57"><div class="ttname"><a href="class_ford_fulkerson.html#a5db05c3a3e80e2c39a40681b18ae8b57">FordFulkerson::FordFulkerson</a></div><div class="ttdeci">FordFulkerson(const std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; &amp;g, const int source, const int target)</div><div class="ttdoc">Ford Fulkersonクラスのコンストラクタ．同時にUを容量の最大値としてO(MU)で最大フローを求める．</div><div class="ttdef"><b>Definition:</b> max_flow.hpp:21</div></div>
-<div class="ttc" id="aclass_ford_fulkerson_html_a8f58d3b113dd98dc858236a7441ba119"><div class="ttname"><a href="class_ford_fulkerson.html#a8f58d3b113dd98dc858236a7441ba119">FordFulkerson::get_flow</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; int, T &gt; &gt; get_flow() const</div><div class="ttdoc">O(M)でフローを求める．</div><div class="ttdef"><b>Definition:</b> max_flow.hpp:50</div></div>
+<a href="max__flow_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_ford_fulkerson.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="class_ford_fulkerson.html">FordFulkerson</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_ford_fulkerson.html#aec8238eaa518e9046d0df8ce05743351">   28</a></span>  <a class="code hl_function" href="class_ford_fulkerson.html#aec8238eaa518e9046d0df8ce05743351">FordFulkerson</a>(</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> std::vector&lt;std::vector&lt;std::pair&lt;int, T&gt;&gt;&gt; &amp;g,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> source, <span class="keyword">const</span> <span class="keywordtype">int</span> sink</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  ) : n_(g.size()), source_(source), sink_(sink), inf_(0) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    residual_g_.reserve(g.size());</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">int</span> edge_id = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; g.size(); ++i) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; g[i].size(); ++j) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keyword">auto</span> [to, cap] = g[i][j];</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        inf_ = max(inf_, cap);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="comment">// Edge: from, to, cap, id_in_all_edge, id_in_adj</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        Edge e = {i, to, cap, edge_id, int(residual_g_[i].size())};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        Edge rev_e = {to, i, 0, edge_id + 1, int(residual_g_[to].size())};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        residual_g_[i].push_back(e);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        residual_g_[to].push_back(rev_e);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        edges_.push_back(std::move(e));</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        edges_.push_back(std::move(rev_e));</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        edge_id += 2;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>      }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    inf_ += 10;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    solve_();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  T get_max_flow_value()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> max_flow_value_; }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_ford_fulkerson.html#aba6030030a35a21f8b946edf1304006d">   57</a></span>  std::vector&lt;std::vector&lt;std::pair&lt;int, T&gt;&gt;&gt; <a class="code hl_function" href="class_ford_fulkerson.html#aba6030030a35a21f8b946edf1304006d">get_flow</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    std::vector&lt;std::vector&lt;int, T&gt;&gt; flow(n_);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_; ++i) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>      flow[i].reserve(residual_g_[i].size() / 2);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>      <span class="keywordflow">for</span> (Edge edge : residual_g_[i]) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">if</span> (edge.id_in_all_edge % 2 == 1) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          flow[edge.to].emplace_back(edge.from, edge.cap);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>      }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> flow;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keyword">struct </span>Edge {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">int</span> from, to;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    T cap;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">int</span> id_in_all_edge, id_in_adj;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  };</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keywordtype">bool</span> find_augment_path_(</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::vector&lt;int&gt; &amp;path, std::vector&lt;Edge&gt; &amp;path_edges, std::vector&lt;bool&gt; &amp;seen</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  )<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> std::vector&lt;Edge&gt; &amp;adj = residual_g_[path.back()];</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">for</span> (Edge edge : adj) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>      <span class="keywordflow">if</span> (seen[edge.to] || edge.cap == 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      seen[edge.to] = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      path.push_back(edge.to);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>      path_edges.push_back(edge);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      <span class="keywordflow">if</span> (edge.to == sink_) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">if</span> (find_augment_path_(path, path_edges, seen)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">else</span> path.pop_back(), path_edges.pop_back();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="keywordtype">void</span> solve_() {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    T max_flow_value = 0;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>      std::vector&lt;int&gt; path = {source_};</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      std::vector&lt;Edge&gt; path_edges;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      std::vector&lt;bool&gt; seen(n_, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      seen[source_] = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      <span class="keywordflow">if</span> (find_augment_path_(path, path_edges, seen)) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        T augment_amount = inf_;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">for</span> (Edge e : path_edges) augment_amount = min(augment_amount, e.cap);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        max_flow_value += augment_amount;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> [from, to, cap, id_in_all_edge, id_in_adj] : path_edges) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>          <span class="keywordflow">if</span> (id_in_all_edge % 2 == 0) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            residual_g_[from][id_in_adj].cap -= augment_amount;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            residual_g_[to][edges_[id_in_all_edge + 1].id_in_adj].cap += augment_amount;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>          } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            residual_g_[from][id_in_adj].cap -= augment_amount;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            residual_g_[to][edges_[id_in_all_edge - 1].id_in_adj].cap += augment_amount;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>          }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>      } <span class="keywordflow">else</span> <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    max_flow_value_ = max_flow_value;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  std::vector&lt;std::vector&lt;Edge&gt;&gt; residual_g_;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  std::vector&lt;Edge&gt; edges_;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> n_, source_, sink_;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  T inf_, max_flow_value_;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}; <span class="comment">// class FordFulkerson</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="class_push_relabel.html">  128</a></span><span class="keyword">class </span><a class="code hl_class" href="class_push_relabel.html">PushRelabel</a> {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="class_push_relabel.html#ac523858eb4c6d395e803115cfab892f5">  133</a></span>  <a class="code hl_function" href="class_push_relabel.html#ac523858eb4c6d395e803115cfab892f5">PushRelabel</a>(</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">const</span> std::vector&lt;std::vector&lt;std::pair&lt;int, T&gt;&gt;&gt; &amp;g,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> source, <span class="keyword">const</span> <span class="keywordtype">int</span> sink</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  ) : n_(g.size()), source_(source), sink_(sink), max_active_v_distance_(0),</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>      distance_label_(n_, 0), distance_to_active_v_(2 * n_),</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>      admissible_edge_ids_(n_), excess_amount_(n_, 0), max_flow_value_(0), flow_(n_)</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    residual_g_.reserve(g.size());</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordtype">int</span> edge_id = 0;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; g.size(); ++i) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; g[i].size(); ++j) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keyword">auto</span> [to, cap] = g[i][j];</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="comment">// Edge: from, to, cap, id_in_all_edge, id_in_adj</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        Edge e = {i, to, cap, edge_id, int(residual_g_[i].size())};</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        Edge rev_e = {to, i, 0, edge_id + 1, int(residual_g_[to].size())};</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        residual_g_[i].push_back(std::make_shared&lt;Edge&gt;(e));</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        residual_g_[to].push_back(std::make_shared&lt;Edge&gt;(rev_e));</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        edges_.push_back(residual_g_[i].back());</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        edges_.push_back(residual_g_[to].back());</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        edge_id += 2;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>      }</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    }</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    solve_();</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_; ++i) {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>      flow_[i].reserve(residual_g_[i].size() / 2);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>      <span class="keywordflow">for</span> (<span class="keyword">const</span> std::shared_ptr&lt;Edge&gt; &amp;edge : residual_g_[i]) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">if</span> (edge-&gt;id_in_all_edge % 2 == 1) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>          flow_[edge-&gt;to].emplace_back(edge-&gt;from, edge-&gt;cap);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>      }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::shared_ptr&lt;Edge&gt; &amp;e : residual_g_[source_]) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>      <span class="keywordflow">if</span> (e-&gt;id_in_all_edge % 2 == 0) max_flow_value_ += edges_[get_rev_edge_id_(e-&gt;id_in_all_edge)]-&gt;cap;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>      <span class="keywordflow">else</span> max_flow_value_ -= edges_[e-&gt;id_in_all_edge]-&gt;cap;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  }</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>  T get_max_flow_value()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> max_flow_value_; }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>  std::vector&lt;std::vector&lt;std::pair&lt;int, T&gt;&gt;&gt; get_flow()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> flow_; }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  <span class="keyword">struct </span>Edge {</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordtype">int</span> from, to;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    T cap;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordtype">int</span> id_in_all_edge, id_in_adj;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  };</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>  <span class="keywordtype">int</span> get_rev_edge_id_(<span class="keywordtype">int</span> edge_id)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">if</span> (edge_id % 2 == 0) <span class="keywordflow">return</span> edge_id + 1;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordflow">else</span> <span class="keywordflow">return</span> edge_id - 1;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>  }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  <span class="keywordtype">void</span> augment_flow_(<span class="keywordtype">int</span> edge_id, T amount) {</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    assert(amount &gt; 0);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    assert(amount &lt;= edges_[edge_id]-&gt;cap);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    edges_[edge_id]-&gt;cap -= amount;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    edges_[get_rev_edge_id_(edge_id)]-&gt;cap += amount;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    excess_amount_[edges_[edge_id]-&gt;from] -= amount;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">if</span> (edges_[edge_id]-&gt;from != source_) assert(excess_amount_[edges_[edge_id]-&gt;from] &gt;= 0);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    excess_amount_[edges_[edge_id]-&gt;to] += amount;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    assert(edges_[edge_id]-&gt;cap &gt;= 0);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    assert(edges_[get_rev_edge_id_(edge_id)]-&gt;cap &gt;= 0);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>  <span class="keywordtype">void</span> push_(<span class="keywordtype">int</span> edge_id) {</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    std::shared_ptr&lt;Edge&gt; e = edges_[edge_id];</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    assert(distance_label_[e-&gt;from] == distance_label_[e-&gt;to] + 1);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    T augment_amount = std::min(excess_amount_[e-&gt;from], e-&gt;cap);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    augment_flow_(edge_id, augment_amount);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">if</span> (e-&gt;cap == 0) admissible_edge_ids_[e-&gt;from].pop_back();</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="comment">// 使用可能辺の逆辺は使用不可能なので，連結リストへの次のような追加は不要</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">// if (rev_e-&gt;cap &gt; 0) admissible_edge_ids_[rev_e-&gt;from].push_back();</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">if</span> (excess_amount_[e-&gt;from] == 0) {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>      distance_to_active_v_[max_active_v_distance_].pop_back();</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    }</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">if</span> (excess_amount_[e-&gt;to] == augment_amount &amp;&amp; e-&gt;to != sink_) {</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>      distance_to_active_v_[distance_label_[e-&gt;to]].push_back(e-&gt;to);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>  }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>  <span class="keywordtype">void</span> relabel_(<span class="keywordtype">int</span> v) {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">// 距離ラベルとして有り得る上限値より大きければよい．</span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="comment">// distance_label_の有効な値は2n_-1のため2n_を設定．</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    distance_to_active_v_[max_active_v_distance_].pop_back();</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    distance_label_[v] = 2 * n_;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::shared_ptr&lt;Edge&gt; &amp;e : residual_g_[v]) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>      <span class="keywordflow">if</span> (e-&gt;cap == 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>      distance_label_[v] = min(distance_label_[v], distance_label_[e-&gt;to] + 1);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> shared_ptr&lt;Edge&gt; &amp;e : residual_g_[v]) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      <span class="comment">// 使用可能辺の追加</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>      <span class="keywordflow">if</span> (e-&gt;cap &gt; 0 &amp;&amp; distance_label_[v] == distance_label_[e-&gt;to] + 1) {</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        admissible_edge_ids_[v].push_back(e-&gt;id_in_all_edge);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>      }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>      <span class="keyword">const</span> std::shared_ptr&lt;Edge&gt; &amp;rev_e = edges_[get_rev_edge_id_(e-&gt;id_in_all_edge)];</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      <span class="keywordflow">if</span> (rev_e-&gt;cap &gt; 0 &amp;&amp; distance_label_[rev_e-&gt;from] == distance_label_[rev_e-&gt;to] + 1) {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        admissible_edge_ids_[rev_e-&gt;from].push_back(rev_e-&gt;id_in_all_edge);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>      }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>      <span class="comment">// 使用可能辺の削除</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>      <span class="comment">// relabelを呼ぶ時点で v == w + 1 となる 使用可能辺は存在しない</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>      <span class="comment">//   relabel を呼ぶための条件より．</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>      <span class="comment">// relabelを呼ぶ時点で v + 1 == w となる w s.t. (w, v) \in E が存在する？</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>      <span class="comment">//   存在し得るが，admissible_edge_ids_[w] の末尾に有るとは限らないので，ここでは削除せず，</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>      <span class="comment">//   solve 内でのループで削除する．</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>      <span class="keywordflow">if</span> (</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        admissible_edge_ids_[rev_e-&gt;from].size() &gt; 0</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        &amp;&amp; admissible_edge_ids_[rev_e-&gt;from].back() == rev_e-&gt;id_in_all_edge</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>      ) admissible_edge_ids_[rev_e-&gt;from].pop_back();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    }</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    distance_to_active_v_[distance_label_[v]].push_back(v);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    max_active_v_distance_ = std::max(max_active_v_distance_, distance_label_[v]);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>  }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>  <span class="keywordtype">void</span> solve_() {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::shared_ptr&lt;Edge&gt; &amp;e : residual_g_[source_]) {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>      <span class="keywordflow">if</span> (e-&gt;cap == 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>      <span class="keywordflow">if</span> (e-&gt;to != sink_) distance_to_active_v_[0].push_back(e-&gt;to);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>      augment_flow_(e-&gt;id_in_all_edge, e-&gt;cap);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    distance_label_[source_] = n_;</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keywordflow">if</span> (distance_to_active_v_[0].empty()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordflow">while</span> (max_active_v_distance_ &gt;= 0) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      delete_non_admissible_edges_();</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>      <span class="keywordtype">int</span> active_v = distance_to_active_v_[max_active_v_distance_].back();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>      <span class="keywordflow">if</span> (admissible_edge_ids_[active_v].empty()) relabel_(active_v);</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        push_(admissible_edge_ids_[active_v].back());</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>      }</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>      <span class="comment">// admissible_edges_check_();</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>      <span class="keywordflow">while</span> (</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        max_active_v_distance_ &gt;= 0</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        &amp;&amp; distance_to_active_v_[max_active_v_distance_].empty()</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>      ) --max_active_v_distance_;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>  }</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>  <span class="keywordtype">void</span> delete_non_admissible_edges_() {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">int</span> active_v = distance_to_active_v_[max_active_v_distance_].back();</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">while</span> (!admissible_edge_ids_[active_v].empty()) {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>      <span class="keyword">const</span> shared_ptr&lt;Edge&gt; &amp;e = edges_[admissible_edge_ids_[active_v].back()];</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>      <span class="keywordflow">if</span> (distance_label_[e-&gt;from] == distance_label_[e-&gt;to] + 1) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>      admissible_edge_ids_[active_v].pop_back();</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    }</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>  }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>  std::vector&lt;std::vector&lt;std::shared_ptr&lt;Edge&gt;&gt;&gt; residual_g_;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>  std::vector&lt;std::shared_ptr&lt;Edge&gt;&gt; edges_;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>  <span class="keyword">const</span> <span class="keywordtype">int</span> n_, source_, sink_;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>  <span class="keywordtype">int</span> max_active_v_distance_;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>  <span class="comment">// 各頂点の距離ラベル</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>  std::vector&lt;int&gt; distance_label_;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>  <span class="comment">// 距離ラベルの値毎の，活性点のリスト</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>  std::vector&lt;std::list&lt;int&gt;&gt; distance_to_active_v_;</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>  <span class="comment">// 頂点毎の，出ていく使用可能辺のリスト</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>  std::vector&lt;std::list&lt;int&gt;&gt; admissible_edge_ids_;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>  <span class="comment">// 頂点毎の，流入量 - 流出量</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>  std::vector&lt;T&gt; excess_amount_;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>  T max_flow_value_;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>  std::vector&lt;std::vector&lt;std::pair&lt;int, T&gt;&gt;&gt; flow_;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>}; <span class="comment">// class PushRelabel</span></div>
+<div class="ttc" id="aclass_ford_fulkerson_html"><div class="ttname"><a href="class_ford_fulkerson.html">FordFulkerson</a></div><div class="ttdef"><b>Definition:</b> max_flow.hpp:23</div></div>
+<div class="ttc" id="aclass_ford_fulkerson_html_aba6030030a35a21f8b946edf1304006d"><div class="ttname"><a href="class_ford_fulkerson.html#aba6030030a35a21f8b946edf1304006d">FordFulkerson::get_flow</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; get_flow() const</div><div class="ttdoc">でフローを求める．</div><div class="ttdef"><b>Definition:</b> max_flow.hpp:57</div></div>
+<div class="ttc" id="aclass_ford_fulkerson_html_aec8238eaa518e9046d0df8ce05743351"><div class="ttname"><a href="class_ford_fulkerson.html#aec8238eaa518e9046d0df8ce05743351">FordFulkerson::FordFulkerson</a></div><div class="ttdeci">FordFulkerson(const std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; &amp;g, const int source, const int sink)</div><div class="ttdoc">FordFulkersonクラスのコンストラクタ．同時にUを容量の最大値として で最大フローを求める．</div><div class="ttdef"><b>Definition:</b> max_flow.hpp:28</div></div>
+<div class="ttc" id="aclass_push_relabel_html"><div class="ttname"><a href="class_push_relabel.html">PushRelabel</a></div><div class="ttdef"><b>Definition:</b> max_flow.hpp:128</div></div>
+<div class="ttc" id="aclass_push_relabel_html_ac523858eb4c6d395e803115cfab892f5"><div class="ttname"><a href="class_push_relabel.html#ac523858eb4c6d395e803115cfab892f5">PushRelabel::PushRelabel</a></div><div class="ttdeci">PushRelabel(const std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; &amp;g, const int source, const int sink)</div><div class="ttdoc">PushRelabelクラスのコンストラクタ． で最大フローを求める．</div><div class="ttdef"><b>Definition:</b> max_flow.hpp:133</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>競プロライブラリ: FordFulkerson&lt; T &gt; Class Template Reference</title>
+<title>競プロライブラリ: PushRelabel&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,24 +73,23 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_ford_fulkerson-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FordFulkerson&lt; T &gt; Class Template Reference</div></div>
+<a href="class_push_relabel-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">PushRelabel&lt; T &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aec8238eaa518e9046d0df8ce05743351"><td class="memItemLeft" align="right" valign="top"><a id="aec8238eaa518e9046d0df8ce05743351" name="aec8238eaa518e9046d0df8ce05743351"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FordFulkerson</b> (const std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; &amp;g, const int source, const int sink)</td></tr>
-<tr class="memdesc:aec8238eaa518e9046d0df8ce05743351"><td class="mdescLeft">&#160;</td><td class="mdescRight">FordFulkersonクラスのコンストラクタ．同時にUを容量の最大値として <picture><source srcset="form_17_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$O(MU)$" src="form_17.png" width="41" height="14"/></picture>で最大フローを求める． <br /></td></tr>
-<tr class="separator:aec8238eaa518e9046d0df8ce05743351"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3179dcbb2569f73057258f741145e21b"><td class="memItemLeft" align="right" valign="top"><a id="a3179dcbb2569f73057258f741145e21b" name="a3179dcbb2569f73057258f741145e21b"></a>
+<tr class="memitem:ac523858eb4c6d395e803115cfab892f5"><td class="memItemLeft" align="right" valign="top"><a id="ac523858eb4c6d395e803115cfab892f5" name="ac523858eb4c6d395e803115cfab892f5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PushRelabel</b> (const std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt; &amp;g, const int source, const int sink)</td></tr>
+<tr class="memdesc:ac523858eb4c6d395e803115cfab892f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">PushRelabelクラスのコンストラクタ． <picture><source srcset="form_16_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$O(N^2 \sqrt M)$" src="form_16.png" width="59" height="16"/></picture>で最大フローを求める． <br /></td></tr>
+<tr class="separator:ac523858eb4c6d395e803115cfab892f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8891daee7281c5e5338de5e495c77f04"><td class="memItemLeft" align="right" valign="top"><a id="a8891daee7281c5e5338de5e495c77f04" name="a8891daee7281c5e5338de5e495c77f04"></a>
 T&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_flow_value</b> () const</td></tr>
-<tr class="separator:a3179dcbb2569f73057258f741145e21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba6030030a35a21f8b946edf1304006d"><td class="memItemLeft" align="right" valign="top"><a id="aba6030030a35a21f8b946edf1304006d" name="aba6030030a35a21f8b946edf1304006d"></a>
+<tr class="separator:a8891daee7281c5e5338de5e495c77f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a776a3b321324d670518af0d03ddb9eea"><td class="memItemLeft" align="right" valign="top"><a id="a776a3b321324d670518af0d03ddb9eea" name="a776a3b321324d670518af0d03ddb9eea"></a>
 std::vector&lt; std::vector&lt; std::pair&lt; int, T &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_flow</b> () const</td></tr>
-<tr class="memdesc:aba6030030a35a21f8b946edf1304006d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><picture><source srcset="form_18_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$O(M)$" src="form_18.png" width="33" height="14"/></picture>でフローを求める． <br /></td></tr>
-<tr class="separator:aba6030030a35a21f8b946edf1304006d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a776a3b321324d670518af0d03ddb9eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/Users/takeshi/Desktop/desktop/kyopro-lib/lib/<a class="el" href="max__flow_8hpp_source.html">max_flow.hpp</a></li>
