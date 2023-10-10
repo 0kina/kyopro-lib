@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['weighted_5funion_5ffind_2ehpp_0',['weighted_union_find.hpp',['../weighted__union__find_8hpp.html',1,'']]]
+  ['topological_5fsort_2ehpp_0',['topological_sort.hpp',['../topological__sort_8hpp.html',1,'']]],
+  ['trie_2ehpp_1',['trie.hpp',['../trie_8hpp.html',1,'']]]
 ];

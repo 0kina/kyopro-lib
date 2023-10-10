@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_5falgorithm_2ehpp_0',['z_algorithm.hpp',['../z__algorithm_8hpp.html',1,'']]]
+  ['weighted_5funion_5ffind_2ehpp_0',['weighted_union_find.hpp',['../weighted__union__find_8hpp.html',1,'']]]
 ];
