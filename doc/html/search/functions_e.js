@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['scc_0',['scc',['../class_s_c_c.html#a7f178ee5edebf0b7f8111dfc1ac02e08',1,'SCC']]],
-  ['scc_1',['SCC',['../class_s_c_c.html#a6d2ffe33d9dcbeb334e6dd39bb859529',1,'SCC']]],
+  ['scc_0',['SCC',['../class_s_c_c.html#a6d2ffe33d9dcbeb334e6dd39bb859529',1,'SCC']]],
+  ['scc_1',['scc',['../class_s_c_c.html#a7f178ee5edebf0b7f8111dfc1ac02e08',1,'SCC']]],
   ['search_2',['search',['../class_trie.html#a111dbff900cdeb666903be25cff3d205',1,'Trie']]],
   ['semigroupsegmenttree_3',['SemigroupSegmentTree',['../class_semigroup_segment_tree.html#a82a3afb597f17d2edfae5b46c4722095',1,'SemigroupSegmentTree']]],
   ['set_4',['set',['../class_lazy_segment_tree.html#a228066896660eebe7e89b7f8d5986199',1,'LazySegmentTree']]],
