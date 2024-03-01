@@ -28,6 +28,10 @@ public:
     return _order;
   }
 
+  std::size_t size() const {
+    return _order.size();
+  }
+
 private:
   std::vector<T> _order;
 };
