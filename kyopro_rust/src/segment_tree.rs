@@ -1,6 +1,9 @@
 use cargo_snippet::snippet;
 
-// validate
+// validation
+// 修正後
+// Point Add Range Sum https://judge.yosupo.jp/submission/194523
+// 修正前でバグを踏んでいなかっただけのもの
 // Static RMQ (RMQ専用): https://judge.yosupo.jp/submission/194451
 // Static RMQ (一般化): https://judge.yosupo.jp/submission/194458
 #[snippet("snipsegmenttree")]
@@ -31,14 +34,19 @@ pub mod segment_tree {
             SegmentTree { nodes, unit_elem: *unit_elem, op, first_leaf }
         }
 
-        pub fn update(&mut self, mut leaf_id: usize, val: T) {
+        pub fn update(&mut self, leaf_id: usize, val: T) {
+            let mut node_id = self.first_leaf + leaf_id;
             self.nodes[self.first_leaf + leaf_id] = val;
-            while leaf_id > 0 {
-                leaf_id = (leaf_id - 1) / 2;
-                let left_child = self.nodes[2 * leaf_id + 1];
-                let right_child = self.nodes[2 * leaf_id + 2];
-                self.nodes[leaf_id] = (self.op)(left_child, right_child);
+            while node_id > 0 {
+                node_id = (node_id - 1) / 2;
+                let left_child = self.nodes[2 * node_id + 1];
+                let right_child = self.nodes[2 * node_id + 2];
+                self.nodes[node_id] = (self.op)(left_child, right_child);
             }
+        }
+
+        pub fn get_val(&self, leaf_id: usize) -> T {
+            self.nodes[self.first_leaf + leaf_id]
         }
 
         pub fn query(&self, left: usize, right: usize) -> T {
