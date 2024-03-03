@@ -20,14 +20,14 @@ pub mod input {
         get_line_inner(reader)
     }
 
-    pub fn input_vec<T>(n: usize) -> Vec<T>
+    pub fn input_vec<T>() -> Vec<T>
     where
         T: FromStr,
         <T as FromStr>::Err: Debug,
     {
         let s = get_line();
         let ws = s.split_whitespace();
-        let mut values = Vec::<T>::with_capacity(n);
+        let mut values = Vec::<T>::new();
         for w in ws {
             values.push(w.parse().unwrap());
         }
@@ -39,7 +39,7 @@ pub mod input {
         T: FromStr,
         <T as FromStr>::Err: Debug,
     {
-        input_vec::<T>(1).swap_remove(0)
+        input_vec::<T>().swap_remove(0)
     }
 
     pub fn input_pair<T, U>() -> (T, U)
@@ -49,7 +49,7 @@ pub mod input {
         U: FromStr,
         <U as FromStr>::Err: Debug,
     {
-        let p = input_vec::<String>(2);
+        let p = input_vec::<String>();
         let t = T::from_str(&p[0]).unwrap();
         let u = U::from_str(&p[1]).unwrap();
         (t, u)
@@ -62,7 +62,7 @@ mod test_input {
 
     #[test]
     fn test_input_vec_usize() {
-        let result = input::input_vec::<usize>(3);
+        let result = input::input_vec::<usize>();
         assert_eq!(result, vec![2usize, 4usize, 5usize]);
     }
 }
