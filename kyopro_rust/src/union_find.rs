@@ -6,7 +6,7 @@ use cargo_snippet::snippet;
 pub mod union_find {
     pub struct UnionFind {
         par: Vec<usize>,
-        sz: Vec<u32>
+        sz: Vec<u32>,
     }
 
     impl UnionFind {
@@ -17,7 +17,9 @@ pub mod union_find {
         }
 
         pub fn root(&mut self, x: usize) -> usize {
-            if self.par[x] == x { return x; }
+            if self.par[x] == x {
+                return x;
+            }
             self.par[x] = self.root(self.par[x]);
             self.par[x]
         }
@@ -30,7 +32,9 @@ pub mod union_find {
         pub fn unite(&mut self, x: usize, y: usize) -> bool {
             let mut rx = self.root(x);
             let mut ry = self.root(y);
-            if rx == ry { return false; }
+            if rx == ry {
+                return false;
+            }
             if self.sz[rx] < self.sz[ry] {
                 std::mem::swap(&mut rx, &mut ry);
             }

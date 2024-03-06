@@ -31,7 +31,12 @@ pub mod segment_tree {
                 let right_child = nodes[2 * i + 2];
                 nodes[i] = op(left_child, right_child);
             }
-            SegmentTree { nodes, unit_elem: *unit_elem, op, first_leaf }
+            SegmentTree {
+                nodes,
+                unit_elem: *unit_elem,
+                op,
+                first_leaf,
+            }
         }
 
         pub fn update(&mut self, leaf_id: usize, val: T) {
