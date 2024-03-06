@@ -58,7 +58,7 @@ pub mod segment_tree {
             self.query_inner(left, right, 0, 0, self.first_leaf + 1)
         }
 
-        pub fn query_inner(
+        fn query_inner(
             &self,
             query_left: usize,
             query_right: usize,
