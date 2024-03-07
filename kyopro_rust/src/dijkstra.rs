@@ -11,7 +11,7 @@ pub mod dijkstra {
         parent: Vec<usize>,
         distance: Vec<T>,
         graph: &'a Vec<Vec<(usize, T)>>,
-        inf: T
+        inf: T,
     }
 
     impl<'a, T: std::ops::Add<Output = T> + Copy + Ord> Dijkstra<'a, T> {
@@ -32,7 +32,7 @@ pub mod dijkstra {
                 parent,
                 distance,
                 graph,
-                inf: inf
+                inf: inf,
             };
             dijk.construct();
             dijk
@@ -72,7 +72,7 @@ pub mod dijkstra {
 
         pub fn distance_to(&self, v: usize) -> Option<T> {
             if self.distance[v] == self.inf {
-                return None
+                return None;
             }
             Some(self.distance[v])
         }
