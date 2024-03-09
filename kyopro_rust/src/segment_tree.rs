@@ -8,15 +8,15 @@ use cargo_snippet::snippet;
 // Static RMQ (一般化): https://judge.yosupo.jp/submission/194458
 #[snippet("snipsegmenttree")]
 pub mod segment_tree {
-    pub struct SegmentTree<T: Copy> {
+    pub struct SegmentTree<'a, T: Copy> {
         nodes: Vec<T>,
         unit_elem: T,
-        op: Box<dyn Fn(T, T) -> T>,
+        op: Box<dyn Fn(T, T) -> T + 'a>,
         first_leaf: usize,
     }
 
-    impl<T: Copy> SegmentTree<T> {
-        pub fn new(leaves: &Vec<T>, unit_elem: &T, op: Box<dyn Fn(T, T) -> T>) -> Self {
+    impl<'a, T: Copy> SegmentTree<'a, T> {
+        pub fn new(leaves: &Vec<T>, unit_elem: &T, op: Box<dyn Fn(T, T) -> T + 'a>) -> Self {
             let mut n_leaves = 1;
             while n_leaves < leaves.len() {
                 n_leaves *= 2;
