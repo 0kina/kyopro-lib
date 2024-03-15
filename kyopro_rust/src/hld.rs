@@ -2,6 +2,7 @@ use cargo_snippet::snippet;
 
 // validation
 // Vertex Add Path Sum (https://judge.yosupo.jp/submission/195316)
+// Vertex Set Path Composite (https://judge.yosupo.jp/submission/196897)
 #[snippet("sniphld")]
 pub mod hld {
     pub struct HLD<'a> {
@@ -92,7 +93,9 @@ pub mod hld {
             self.hld_orders[x]
         }
 
-        /// 分割されたクエリは閉区間であることに注意
+        /// 分割されたクエリは閉区間であることに注意．
+        /// 各区間の順序はパスと異なる場合がある．各区間の両端の大小関係が逆転することはない．
+        /// パスと同じ順序の区間集合が欲しい場合はquery_ordered()を使用．
         pub fn query(&self, mut u: usize, mut v: usize) -> Vec<(usize, usize)> {
             let mut ret = vec![];
             while self.most_shallow_list[u] != self.most_shallow_list[v] {
@@ -112,6 +115,27 @@ pub mod hld {
             ));
             ret
         }
+
+        /// 分割されたクエリは閉区間であることに注意．
+        /// また，u-vパスと同じ順序のため，インデックスの大小関係が逆転している可能性がある．
+        pub fn query_ordered(&self, mut u: usize, mut v: usize) -> Vec<(usize, usize)> {
+            let mut ret_u = vec![];
+            let mut ret_v = vec![];
+            while self.most_shallow_list[u] != self.most_shallow_list[v] {
+                let top_u = self.most_shallow_list[u];
+                let top_v = self.most_shallow_list[v];
+                if self.depth[top_u] <= self.depth[top_v] {
+                    ret_v.push((self.hld_orders[top_v], self.hld_orders[v]));
+                    v = self.parents[top_v];
+                } else {
+                    ret_u.push((self.hld_orders[u], self.hld_orders[top_u]));
+                    u = self.parents[top_u];
+                }
+            }
+            ret_u.push((self.hld_orders[u], self.hld_orders[v]));
+            ret_u.append(&mut ret_v.into_iter().rev().collect());
+            ret_u
+        }
     }
 
     #[cfg(test)]
@@ -120,10 +144,21 @@ pub mod hld {
 
         #[test]
         fn test_hld_query() {
-            // https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3の例を使用
+            // https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3 の例を使用
             let tree = vec![12, 0, 1, 2, 2, 1, 0, 6, 7, 7, 0, 10];
             let hld = HLD::new(&tree);
             assert_eq!(hld.query(4, 9), vec![(9, 9), (4, 4), (6, 7), (0, 2)]);
+        }
+
+        #[test]
+        fn test_hld_query_ordered() {
+            // https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3 の例を使用
+            let tree = vec![12, 0, 1, 2, 2, 1, 0, 6, 7, 7, 0, 10];
+            let hld = HLD::new(&tree);
+            assert_eq!(
+                hld.query_ordered(4, 9),
+                vec![(4, 4), (2, 0), (6, 7), (9, 9)]
+            );
         }
     }
 }
